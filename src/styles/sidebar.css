@@ -213,8 +213,9 @@ body{
   font-size: 12px;
 }
 .home-section{
+  color: #fff;
   position: relative;
-  background: #E4E9F7;
+  background: #000;
   height: 100vh;
   left: 260px;
   width: calc(100% - 260px);
@@ -222,8 +223,19 @@ body{
   padding: 12px;
 }
 .sidebar.close ~ .home-section{
-  left: 78px;
-  width: calc(100% - 78px);
+  position: absolute;
+  top: 60px;
+  left: 60px;
+  width: calc(100% - 60px);
+}
+.sidebar.close ~ .header-fpts{
+  left: 60px;
+  width: calc(100% - 60px);
+}
+.header-fpts{
+  position: absolute;
+  left: 240px;
+  height: 60px;
 }
 .home-content{
   display: flex;
@@ -259,6 +271,10 @@ body{
   }
   .sidebar.close .profile-details{
     width: 60px;
+  }
+  .header-fpts{
+    left: 240px;
+    height: 60px;
   }
   .home-section{
     left: 240px;

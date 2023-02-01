@@ -5,6 +5,9 @@ const colorConfigs={
      hoverBg:"#202020",
      activeBg:"#202020",
      colorSB:"#034e95",
+     colorDrawerBgIcon:"#555555",
+     colorSBRight:"#363636",
+     colorSBRightContent:"#434343",
     },
     topbar:{
      bg:"#fff",

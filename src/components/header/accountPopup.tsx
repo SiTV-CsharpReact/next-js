@@ -21,7 +21,17 @@ const Account = () => {
     };
   return (
     <>
-    <Button onClick={() => setOpen(true)}>Tài khoản</Button>
+     <Box display='flex' onClick={() => setOpen(true)} style={{cursor:'pointer'}}>
+          <AccountCircleIcon  style={{fontSize:'42px', color:colorConfigs.sidebar.colorSB}}/>  
+            <Box  paddingTop="2px">
+            <Typography style={{fontSize:'14px', fontWeight:'600', color:colorConfigs.sidebar.colorSB}}>
+            Tạ Văn Sĩ
+            </Typography>
+            <Typography style={{fontSize:'12px', color:colorConfigs.sidebar.colorSB,padding:'unset'}} >
+           058C222210
+            </Typography>
+            </Box>
+          </Box>
       <Drawer open={open} anchor={"right"} onClose={() => setOpen(false)} >
       <Box
           sx={{

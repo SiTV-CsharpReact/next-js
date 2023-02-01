@@ -1,5 +1,5 @@
 import colorConfigs from '@/configs/colorConfigs'
-import { Button, Drawer, Box, Typography, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider,Link, IconButton, Tooltip } from '@mui/material'
+import { Button, Drawer, Box, Typography, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider, Link, IconButton, Tooltip, Badge, styled, alpha } from '@mui/material'
 import React from 'react'
 import { useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
@@ -17,257 +17,130 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import FilterListTwoToneIcon from '@mui/icons-material/FilterListTwoTone';
 import SettingsIcon from '@mui/icons-material/Settings';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(3),
+    width: 'auto',
+  },
+}));
 const Noti = () => {
-    const [open, setOpen] = useState(false);
-    const handleClose = () => {
-      setOpen(false);
-    };
+
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <>
-   <Box sx={{
-  width:'40px',
-  height:'40px',
-  display:'flex',
-  justifyContent:'center',
-  border:'1px solid #034e95',
-  borderRadius:'5px',
-  alignItems: 'center',
-  boxSizing: 'border-box',
-  marginRight: '10px'
-}} onClick={() => setOpen(true)}>
-  <Tooltip title="Thông báo">
-  <IconButton>
-  <NotificationsIcon style={{color:'#034e95',fontSize:'30px'}}/>
-  </IconButton>
-</Tooltip>
-
-</Box>
-      <Drawer open={open} anchor={"right"} onClose={() => setOpen(false)} >
-      <Box
-          sx={{
-            width:550,
-            backgroundColor:colorConfigs.sidebar.hoverBg,
-            height:'100%',
-            position: 'relative',
-            
-          }}>
-        <Box>
-          {/* Header */}
-        <Box sx={{
-          
-          height:90,
-          padding:'8px 10px'
-        }}>
-     
-          <Box  paddingTop="5px">
-      
-          <Box display='flex' justifyContent="space-between">
-          <Box display='flex'>
-          <CloseIcon style={{ color: '#fff',cursor:'pointer',fontWeight:'bold' }}  onClick={handleClose}/>
-   
-   <Typography style={{fontSize:'18px', fontWeight:'500', color:'white',paddingLeft:'10px'}}>
-  Tin nhắn
-   </Typography>
-          </Box>
-    
-            
- 
-            <Box display='flex' color="#bebebe">
-            <Tooltip title="Thêm">
-            <IconButton>
-  <FilterListTwoToneIcon style={{color:'#bebebe'}}/>  
-  </IconButton>
-</Tooltip>
-<Tooltip title="Thiết lập">
-<IconButton>
-            <SettingsIcon/>
-            </IconButton>
-            </Tooltip>
-            <Tooltip title="Thêm">
-            <IconButton>
-            <MoreVertIcon/>
-            </IconButton>  
-            </Tooltip>
-     
-            </Box>
-           
-          </Box>
-          
-          </Box>
-        </Box>
-   {/* body */}
-        <Box sx={{
-          backgroundColor:colorConfigs.sidebar.colorSBRightContent,}}>
-      <nav aria-label="main mailbox folders">
-        <List style={{color:"#fff"}} disablePadding>
-          <ListItem disablePadding style={{borderBottom:'1px solid #2F2F2F'}} >
-            <ListItemButton>
-              <ListItemIcon sx={{
-              borderRadius:"4px",
-              backgroundColor: colorConfigs.sidebar.colorDrawerBgIcon,
-              height:24,
-              width:24,
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              color:"white",
-              minWidth:24
-              }}>
-                <KeyIcon style={{color:"#fff",fontSize:"18px"}}/>
-              </ListItemIcon>
-              <ListItemText primary="Thay đổi mật khẩu" className="pl-2"/>
-            </ListItemButton>
-          </ListItem>
-          <Divider />
-          <ListItem disablePadding style={{borderBottom:'1px solid #2F2F2F'}}>
-            <ListItemButton>
-              <ListItemIcon sx={{
-              borderRadius:"4px",
-              backgroundColor: colorConfigs.sidebar.colorDrawerBgIcon,
-              height:24,
-              width:24,
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              color:"white",
-              minWidth:24
-              }}>
-           <LockIcon style={{color:"#fff",fontSize:"18px"}}/>
-              </ListItemIcon>
-              <ListItemText primary="Quản trị Token" className="pl-2"/>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding style={{borderBottom:'1px solid #2F2F2F'}}>
-            <ListItemButton>
-              <ListItemIcon sx={{
-              borderRadius:"4px",
-              backgroundColor: colorConfigs.sidebar.colorDrawerBgIcon,
-              height:24,
-              width:24,
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              color:"white",
-              minWidth:24
-              }}>
-                <RestoreIcon style={{color:"#fff",fontSize:"18px"}}/>
-              </ListItemIcon>
-              <ListItemText primary="Hoạt động gần đây" className="pl-2"/>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding style={{borderBottom:'1px solid #2F2F2F'}}>
-            <ListItemButton>
-              <ListItemIcon sx={{
-              borderRadius:"4px",
-              backgroundColor: colorConfigs.sidebar.colorDrawerBgIcon,
-              height:24,
-              width:24,
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              color:"white",
-              minWidth:24
-              }}>
-                <LockOpenIcon style={{color:"#fff",fontSize:"18px"}}/>
-              </ListItemIcon>
-              <ListItemText primary="Cài đặt mật khẩu giao dịch" className="pl-2"/>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding style={{borderBottom:'1px solid #2F2F2F'}}>
-            <ListItemButton>
-              <ListItemIcon sx={{
-              borderRadius:"4px",
-              backgroundColor: colorConfigs.sidebar.colorDrawerBgIcon,
-              height:24,
-              width:24,
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              color:"white",
-              minWidth:24
-              }}>
-                <HelpOutlineIcon style={{color:"#fff",fontSize:"18px"}}/>
-              </ListItemIcon>
-              <ListItemText primary="Hướng dẫn xóa cache" className="pl-2"/>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding style={{borderBottom:'1px solid #2F2F2F'}}>
-            <ListItemButton>
-              <ListItemIcon sx={{
-              borderRadius:"4px",
-              backgroundColor: colorConfigs.sidebar.colorDrawerBgIcon,
-              height:24,
-              width:24,
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              color:"white",
-              minWidth:24
-              }}>
-                <RateReviewIcon style={{color:"#fff",fontSize:"18px"}}/>
-              </ListItemIcon>
-              <ListItemText primary="Góp ý" className="pl-2"/>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding style={{borderBottom:'1px solid #2F2F2F'}}>
-            <ListItemButton>
-              <ListItemIcon sx={{
-              borderRadius:"4px",
-              backgroundColor: colorConfigs.sidebar.colorDrawerBgIcon,
-              height:24,
-              width:24,
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              color:"white",
-              minWidth:24
-              }}>
-                <GTranslateIcon style={{color:"#fff",fontSize:"18px"}}/>
-              </ListItemIcon>
-              <ListItemText primary="Hỗ trợ ngôn ngữ:" className="pl-2"/>
-              <Link display="flex" sx={{
-                textDecoration: "none"
-                }}>
-              <ListItemText primary="Tiếng việt" className="pl-2"/>
-              <ListItemText primary="|" className="pl-2"/>
-              <ListItemText primary="Tiếng anh" className="pl-2"/>
-              </Link>
-            
-            </ListItemButton>
-          </ListItem>
-     
-        </List>
-      </nav>
-     
-      </Box>
-      
-      {/* Footer */}
       <Box sx={{
-        position:'absolute',
-        bottom: 0,
-        width: '100%',
-        height: 40,
-        backgroundColor: colorConfigs.sidebar.colorSBRightContent
-      }}>
-        <Box sx={{
-        position:'relative',     
-        height: '100%',
-        width: '100%',
-        display:'flex',
-        alignItems: 'center',
+        width: '40px',
+        height: '40px',
+        display: 'flex',
         justifyContent: 'center',
-        cursor: 'pointer'
-        }}>
-          <Typography color='#fff'>
-          Thoát
-       
-          <LogoutIcon style={{color:colorConfigs.sidebar.colorSB,fontSize:"22px",marginLeft:'5px'}}/>
-          </Typography>
-       
+        alignItems: 'center',
+        boxSizing: 'border-box',
+        marginRight: '10px'
+      }} onClick={() => setOpen(true)}>
+
+        <Tooltip title="Thông báo">
+          <IconButton>
+            <Badge badgeContent={17} color="error">
+              <NotificationsIcon style={{ color: '#034e95', fontSize: '30px' }} />
+            </Badge>
+          </IconButton>
+
+        </Tooltip>
+
+      </Box>
+      <Drawer open={open} anchor={"right"} onClose={() => setOpen(false)} >
+        <Box
+          sx={{
+            width: 550,
+            backgroundColor: colorConfigs.sidebar.hoverBg,
+            height: '100%',
+            position: 'relative',
+
+          }}>
+          <Box>
+            {/* Header */}
+            <Box sx={{
+              height: 90,
+              display:'flex',
+              flexFlow:'column',
+              justifyContent:'space-between'
+            }}>
+
+              <Box >
+
+                <Box display='flex' justifyContent="space-between">
+                  <Box display='flex' paddingTop="12px" paddingLeft="10px">
+                    <CloseIcon style={{ color: '#bebebe', cursor: 'pointer', fontWeight: 'bold',marginTop:2 }} onClick={handleClose} />
+
+                    <Typography style={{ fontSize: '18px', fontWeight: '500', color: 'white', paddingLeft: '12px' }}>
+                      Tin nhắn
+                    </Typography>
+                  </Box>
+                  <Box display='flex' color="#bebebe">
+                    <Tooltip title="Thêm">
+                      <IconButton>
+                        <FilterListTwoToneIcon style={{ color: '#bebebe' }} />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Thiết lập">
+                      <IconButton>
+                        <SettingsIcon style={{ color: '#bebebe' }} />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Thêm">
+                      <IconButton>
+                        <MoreVertIcon style={{ color: '#bebebe' }} />
+                      </IconButton>
+                    </Tooltip>
+
+                  </Box>
+
+                </Box>
+
+              </Box>
+              <Box display='flex' justifyContent='center' alignContent='center'>
+                <Box sx={{
+                  color: '#034e95',
+                  borderBottom:'2px solid #034e95',
+                  width: '50%',
+                  textAlign: 'center',
+                  fontSize: '16px', fontWeight: '500', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+                }} >
+                  Quan Tâm
+                </Box>
+                <Box sx={{
+                  borderBottom:'2px solid #9d9d9d',
+                  color: '#9d9d9d',
+                  width: '50%',
+                  textAlign: 'center',
+                  fontSize: '16px', fontWeight: '500', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+                }} >
+                  Khác
+                </Box>
+              </Box>
+            </Box>
+            {/* body */}
+
+
+            {/* Footer */}
+
           </Box>
-          </Box>
-       </Box>
-         </Box>
+
+
+        </Box>
+
       </Drawer>
     </>
   )

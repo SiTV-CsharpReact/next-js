@@ -39,7 +39,7 @@ const Sidebar = () => {
         </a>
         <ul className="sub-menu">
          
-          <li><a href="#">Lịch sử đặt lệnh</a></li>
+          <li><a href="/Report">Lịch sử đặt lệnh</a></li>
           <li><a href="#">Lịch sử khớp lệnh</a></li>
           <li><a href="#">Lệnh chờ khớp t.toán</a></li>
         </ul>

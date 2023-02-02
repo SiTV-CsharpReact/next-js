@@ -1,18 +1,54 @@
 'use client'
-import { alpha, Button, createTheme, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, IconButton, InputBase, Link, List, ListItem, ListItemButton, ListItemIcon, ListItemText, styled, SwipeableDrawer, Tooltip, Typography } from "@mui/material"
+import { alpha, Checkbox, createTheme, IconButton, InputBase, Link, styled, Tooltip, Typography } from "@mui/material"
 import Box from "@mui/material/Box"
-
 import * as React from 'react';
-import colorConfigs from "@/configs/colorConfigs";
-
 import InsertChartIcon from '@mui/icons-material/InsertChart';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import TocIcon from '@mui/icons-material/Toc';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import accountPopup from "./accountPopup";
 import Account from "./accountPopup";
 import Noti from "./notiPopup";
 import SearchIcon from '@mui/icons-material/Search';
+
+declare module '@mui/material/styles' {
+  interface Theme {
+    status: {
+      danger: string;
+    };
+  }
+  // allow configuration using `createTheme`
+  interface ThemeOptions {
+    status?: {
+      danger?: string;
+    };
+  }
+}
+
+const CustomBox = styled(Box)(({ theme }) => ({
+  color: theme.status.danger,
+  '&.Mui-checked': {
+    color: theme.status.danger,
+  },
+}));
+
+const BoxIcon = styled(Box)(({ theme }) => ({
+  width: '40px',
+  height: '40px',
+  display: 'flex',
+  justifyContent: 'center',
+  border: '1px solid #034e95',
+  borderRadius: '5px',
+  alignItems: 'center',
+  boxSizing: 'border-box',
+  marginRight: '15px'
+}));
+
+
+// const BoxIcon = createTheme({
+//   status: {
+ 
+//   },
+// });
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -64,9 +100,11 @@ const Header = () => {
     setOpen(false);
   };
   return (
-    <Box className="header-fpts flex p-2.5 justify-between">
+    <Box display='flex' position='fixed' justifyContent="space-between" padding='10px 18px' className="header-fpts">
       <Box className="header-left flex" >
-
+        <Box>
+          
+        </Box>
         <Link href="/" sx={
           {
             display: 'flex',
@@ -89,44 +127,24 @@ const Header = () => {
       </Box>
       <Box className="header-right" display='flex'>
 
-        <Box sx={{
-          width: '40px',
-          height: '40px',
-          display: 'flex',
-          justifyContent: 'center',
-          border: '1px solid #034e95',
-          borderRadius: '5px',
-          alignItems: 'center',
-          boxSizing: 'border-box',
-          marginRight: '10px'
-        }}>
+        <BoxIcon>
           <Tooltip title="Bảng giá">
-            <IconButton>
+            <IconButton >
               <InsertChartIcon style={{ color: '#034e95', fontSize: '30px' }} />
             </IconButton>
           </Tooltip>
 
-        </Box>
-        <Box sx={{
-          width: '40px',
-          height: '40px',
-          display: 'flex',
-          justifyContent: 'center',
-          border: '1px solid #034e95',
-          borderRadius: '5px',
-          alignItems: 'center',
-          boxSizing: 'border-box',
-          marginRight: '10px'
-        }}>
+        </BoxIcon>
+        <BoxIcon>
           <Tooltip title="Chứng khoán phái sinh">
             <IconButton>
               <ShuffleIcon style={{ color: 'green', fontSize: '30px' }} />
             </IconButton>
           </Tooltip>
 
-        </Box>
+        </BoxIcon>
 
-        <Search sx={{marginLeft:'0px !important',marginRight:'10px !important'}}>
+        <Search sx={{marginLeft:'0px !important',marginRight:'15px !important'}}>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
@@ -135,24 +153,14 @@ const Header = () => {
             inputProps={{ 'aria-label': 'search' }}
           />
         </Search>
-        <Box sx={{
-          width: '40px',
-          height: '40px',
-          display: 'flex',
-          justifyContent: 'center',
-          border: '1px solid #034e95',
-          borderRadius: '5px',
-          alignItems: 'center',
-          boxSizing: 'border-box',
-          marginRight: '10px'
-        }}>
+        <BoxIcon>
           <Tooltip title="Danh sách">
             <IconButton>
               <TocIcon style={{ color: '#034e95', fontSize: '30px' }} />
             </IconButton>
           </Tooltip>
 
-        </Box>
+        </BoxIcon>
         <Noti />
         <Account />
 

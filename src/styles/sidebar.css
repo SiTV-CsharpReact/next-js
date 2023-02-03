@@ -220,20 +220,20 @@ body{
   left: 260px;
   width: calc(100% - 260px);
   transition: all 0.5s ease;
-  padding: 12px;
+  padding: 15px;
 }
 .sidebar.close ~ .home-section{
   position: absolute;
   top: 60px;
   left: 60px;
   width: calc(100% - 60px);
+  overflow: scroll;
 }
 .sidebar.close ~ .header-fpts{
   left: 60px;
   width: calc(100% - 60px);
 }
 .header-fpts{
-  position: absolute;
   left: 240px;
   height: 60px;
 }
@@ -255,7 +255,22 @@ body{
   font-size: 26px;
   font-weight: 600;
 }
+#scroll-bar::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+}
 
+#scroll-bar::-webkit-scrollbar
+{
+	width: 6px;
+}
+
+#scroll-bar::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #575757;
+}
 @media screen and (max-width: 400px){
   .sidebar{
     width: 240px;

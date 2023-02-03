@@ -5,6 +5,7 @@ import styles from './page.module.css'
 import mockData from '../mockData';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import CardDiv from '@/components/common/Carddiv';
+import '../styles/dragdrop.scss'
 type Props ={};
 export default function Home(props:Props) {
   const [data,setData] = useState(mockData);
@@ -33,8 +34,8 @@ export default function Home(props:Props) {
 }
   return (
    
-    <main className={styles.main}>
-   <DragDropContext onDragEnd={onDragEnd}>
+  <>
+    <DragDropContext onDragEnd={onDragEnd}>
             <div className="kanban">
                 {
                     data.map(section => (
@@ -83,7 +84,8 @@ export default function Home(props:Props) {
                     ))
                 }
             </div>
-        </DragDropContext>
-    </main>
+        </DragDropContext></>
+ 
+    
   )
 }

@@ -1,18 +1,9 @@
 import colorConfigs from '@/configs/colorConfigs'
-import { Button, Drawer, Box, Typography, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider, Link, IconButton, Tooltip, Badge, styled, alpha } from '@mui/material'
+import { Drawer, Box, Typography, IconButton, Tooltip, Badge, styled, alpha } from '@mui/material'
 import React from 'react'
 import { useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { color } from "@mui/system";
-import KeyIcon from '@mui/icons-material/Key';
-import LockIcon from '@mui/icons-material/Lock';
-import RestoreIcon from '@mui/icons-material/Restore';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import RateReviewIcon from '@mui/icons-material/RateReview';
-import GTranslateIcon from '@mui/icons-material/GTranslate';
-import LogoutIcon from '@mui/icons-material/Logout';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import FilterListTwoToneIcon from '@mui/icons-material/FilterListTwoTone';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -47,13 +38,13 @@ const Noti = () => {
         justifyContent: 'center',
         alignItems: 'center',
         boxSizing: 'border-box',
-        marginRight: '10px'
+        marginRight: '20px'
       }} onClick={() => setOpen(true)}>
 
         <Tooltip title="Thông báo">
           <IconButton>
-            <Badge badgeContent={17} color="error">
-              <NotificationsIcon style={{ color: '#034e95', fontSize: '30px' }} />
+            <Badge badgeContent={9} color="error">
+              <NotificationsNoneIcon style={{ color: '#034e95', fontSize: '30px' }} />
             </Badge>
           </IconButton>
 

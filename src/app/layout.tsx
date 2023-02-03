@@ -19,7 +19,7 @@ export default function RootLayout({
 
       <Sidebar/>
       <Header/>
-        <div className='home-section'>
+        <div className='home-section' id="scroll-bar">
         {children}
         </div>
       

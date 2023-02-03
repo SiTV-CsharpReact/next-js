@@ -13,7 +13,9 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
 import LogoutIcon from '@mui/icons-material/Logout';
-
+import Image from 'next/image'
+import userMen from '../../../public/men.jpg'
+import menuAvatar from '../../../public/menu-avatar.svg'
 const Account = () => {
     const [open, setOpen] = useState(false);
     const handleClose = () => {
@@ -21,9 +23,36 @@ const Account = () => {
     };
   return (
     <>
-     <Box display='flex' onClick={() => setOpen(true)} style={{cursor:'pointer'}}>
-          <AccountCircleIcon  style={{fontSize:'42px', color:colorConfigs.sidebar.colorSB}}/>  
-            <Box  paddingTop="2px">
+     <Box  display='flex' position='relative' onClick={() => setOpen(true)} style={{cursor:'pointer'}}>
+     <Image
+        alt="Vercel logo"
+        src={userMen}
+        width={40}
+        height={40}
+        
+        style={{
+          border: '2px solid #034e95',
+          borderRadius: '50%',
+          maxWidth: '100%',
+         
+        }}
+      />
+           <Image
+        alt="Vercel logo"
+        src={menuAvatar}
+        width={16}
+        height={16}
+        
+        style={{
+          position:'absolute',
+          borderRadius: '50%',
+          maxWidth: '100%',
+          height: 'auto',
+           top:25,
+           left:27
+        }}
+      />
+            <Box  paddingTop="2px" paddingLeft="7px">
             <Typography style={{fontSize:'14px', fontWeight:'600', color:colorConfigs.sidebar.colorSB}}>
             Tạ Văn Sĩ
             </Typography>
@@ -55,8 +84,19 @@ const Account = () => {
           <Box display='flex'justifyContent="space-between" paddingTop="5px">
       
           <Box display='flex'>
-          <AccountCircleIcon  style={{fontSize:'52px', color:'white'}}/>  
-            <Box  paddingTop="5px">
+          <Image
+        alt="Vercel logo"
+        src={userMen}
+        width={52}
+        height={52}
+        style={{
+          borderRadius: '50%',
+          maxWidth: '100%',
+          height: 'auto',
+        }}
+      />
+      
+            <Box   paddingLeft="7px">
             <Typography style={{fontSize:'16px', fontWeight:'600', color:'white'}}>
             Tạ Văn Sĩ
             </Typography>

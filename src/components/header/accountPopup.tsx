@@ -1,5 +1,5 @@
 import colorConfigs from '@/configs/colorConfigs'
-import { Button, Drawer, Box, Typography, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider,Link } from '@mui/material'
+import { Button, Drawer, Box, Typography, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider,Link, styled } from '@mui/material'
 import React from 'react'
 import { useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
@@ -16,6 +16,22 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Image from 'next/image'
 import userMen from '../../../public/men.jpg'
 import menuAvatar from '../../../public/menu-avatar.svg'
+
+
+const ListItemAccount = styled(ListItemIcon)(({ theme }) => ({
+  borderRadius:"4px",
+  backgroundColor: theme.palette.mode === 'dark' ? '#212121' :'#fff',
+  height:24,
+  width:24,
+  display:"flex",
+  justifyContent:"center",
+  alignItems:"center",
+  color:  theme.palette.mode === 'dark' ? '#fff' :'#034e95',
+  minWidth:24
+}));
+
+
+
 const Account = () => {
     const [open, setOpen] = useState(false);
     const handleClose = () => {
@@ -108,7 +124,7 @@ const Account = () => {
           </Box>
           <Box >
              <Box style={{fontSize:'10px',border:'1px solid #BEBEBE',padding:'2px 5px', color:'white',borderRadius:'2px',cursor:'pointer'}}>
-              Chi tiết
+             Thông tin chi tiết tài khoản
              </Box>
             </Box>
           </Box>
@@ -120,128 +136,58 @@ const Account = () => {
         <List style={{color:"#fff"}} disablePadding>
           <ListItem disablePadding style={{borderBottom:'1px solid #2F2F2F'}} >
             <ListItemButton>
-              <ListItemIcon sx={{
-              borderRadius:"4px",
-              backgroundColor: colorConfigs.sidebar.colorDrawerBgIcon,
-              height:24,
-              width:24,
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              color:"white",
-              minWidth:24
-              }}>
-                <KeyIcon style={{color:"#fff",fontSize:"18px"}}/>
-              </ListItemIcon>
+              <ListItemAccount >
+                <KeyIcon style={{fontSize:"18px"}}/>
+              </ListItemAccount>
               <ListItemText primary="Thay đổi mật khẩu" className="pl-2"/>
             </ListItemButton>
           </ListItem>
           <Divider />
           <ListItem disablePadding style={{borderBottom:'1px solid #2F2F2F'}}>
             <ListItemButton>
-              <ListItemIcon sx={{
-              borderRadius:"4px",
-              backgroundColor: colorConfigs.sidebar.colorDrawerBgIcon,
-              height:24,
-              width:24,
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              color:"white",
-              minWidth:24
-              }}>
-           <LockIcon style={{color:"#fff",fontSize:"18px"}}/>
-              </ListItemIcon>
+              <ListItemAccount >
+           <LockIcon style={{fontSize:"18px"}}/>
+              </ListItemAccount>
               <ListItemText primary="Quản trị Token" className="pl-2"/>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding style={{borderBottom:'1px solid #2F2F2F'}}>
             <ListItemButton>
-              <ListItemIcon sx={{
-              borderRadius:"4px",
-              backgroundColor: colorConfigs.sidebar.colorDrawerBgIcon,
-              height:24,
-              width:24,
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              color:"white",
-              minWidth:24
-              }}>
-                <RestoreIcon style={{color:"#fff",fontSize:"18px"}}/>
-              </ListItemIcon>
+              <ListItemAccount >
+                <RestoreIcon style={{fontSize:"18px"}}/>
+              </ListItemAccount>
               <ListItemText primary="Hoạt động gần đây" className="pl-2"/>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding style={{borderBottom:'1px solid #2F2F2F'}}>
             <ListItemButton>
-              <ListItemIcon sx={{
-              borderRadius:"4px",
-              backgroundColor: colorConfigs.sidebar.colorDrawerBgIcon,
-              height:24,
-              width:24,
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              color:"white",
-              minWidth:24
-              }}>
-                <LockOpenIcon style={{color:"#fff",fontSize:"18px"}}/>
-              </ListItemIcon>
+              <ListItemAccount >
+                <LockOpenIcon style={{fontSize:"18px"}}/>
+              </ListItemAccount>
               <ListItemText primary="Cài đặt mật khẩu giao dịch" className="pl-2"/>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding style={{borderBottom:'1px solid #2F2F2F'}}>
             <ListItemButton>
-              <ListItemIcon sx={{
-              borderRadius:"4px",
-              backgroundColor: colorConfigs.sidebar.colorDrawerBgIcon,
-              height:24,
-              width:24,
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              color:"white",
-              minWidth:24
-              }}>
-                <HelpOutlineIcon style={{color:"#fff",fontSize:"18px"}}/>
-              </ListItemIcon>
+              <ListItemAccount >
+                <HelpOutlineIcon style={{fontSize:"18px"}}/>
+              </ListItemAccount>
               <ListItemText primary="Hướng dẫn xóa cache" className="pl-2"/>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding style={{borderBottom:'1px solid #2F2F2F'}}>
             <ListItemButton>
-              <ListItemIcon sx={{
-              borderRadius:"4px",
-              backgroundColor: colorConfigs.sidebar.colorDrawerBgIcon,
-              height:24,
-              width:24,
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              color:"white",
-              minWidth:24
-              }}>
-                <RateReviewIcon style={{color:"#fff",fontSize:"18px"}}/>
-              </ListItemIcon>
+              <ListItemAccount >
+                <RateReviewIcon style={{fontSize:"18px"}}/>
+              </ListItemAccount>
               <ListItemText primary="Góp ý" className="pl-2"/>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding style={{borderBottom:'1px solid #2F2F2F'}}>
             <ListItemButton>
-              <ListItemIcon sx={{
-              borderRadius:"4px",
-              backgroundColor: colorConfigs.sidebar.colorDrawerBgIcon,
-              height:24,
-              width:24,
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              color:"white",
-              minWidth:24
-              }}>
-                <GTranslateIcon style={{color:"#fff",fontSize:"18px"}}/>
-              </ListItemIcon>
+              <ListItemAccount >
+                <GTranslateIcon style={{fontSize:"18px"}}/>
+              </ListItemAccount>
               <ListItemText primary="Hỗ trợ ngôn ngữ:" className="pl-2"/>
               <Link display="flex" sx={{
                 textDecoration: "none"

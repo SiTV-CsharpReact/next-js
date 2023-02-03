@@ -213,9 +213,9 @@ body{
   font-size: 12px;
 }
 .home-section{
-  color: #fff;
+ 
   position: relative;
-  background: #000;
+
   height: 100vh;
   left: 260px;
   width: calc(100% - 260px);
@@ -244,7 +244,7 @@ body{
 }
 .home-section .home-content .bx-menu,
 .home-section .home-content .text{
-  color: #11101d;
+ 
   font-size: 35px;
 }
 .home-section .home-content .bx-menu{

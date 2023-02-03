@@ -6,8 +6,9 @@ import mockData from '../mockData';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import CardDiv from '@/components/common/Carddiv';
 import '../styles/dragdrop.scss'
+import { NextPage } from 'next';
 type Props ={};
-export default function Home(props:Props) {
+export default function Home(props:Props)  {
   const [data,setData] = useState(mockData);
   const onDragEnd = (result:any) => {
     if (!result.destination) return

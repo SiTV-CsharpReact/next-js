@@ -1,5 +1,5 @@
 'use client'
-import { alpha, Checkbox, createTheme, IconButton, InputBase, Link, styled, Tooltip, Typography } from "@mui/material"
+import { alpha, Button, IconButton, InputBase, styled, Switch, Tooltip, Typography, useTheme } from "@mui/material"
 import Box from "@mui/material/Box"
 import * as React from 'react';
 import InsertChartIcon from '@mui/icons-material/InsertChart';
@@ -8,34 +8,29 @@ import TocIcon from '@mui/icons-material/Toc';
 import Account from "./accountPopup";
 import Noti from "./notiPopup";
 import SearchIcon from '@mui/icons-material/Search';
+import Link from "next/link";
+import { useRouter } from 'next/router';
+import SettingsIcon from '@mui/icons-material/Settings';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import ToggleColorMode from "./ToggleColorMode";
 
-declare module '@mui/material/styles' {
-  interface Theme {
-    status: {
-      danger: string;
-    };
-  }
-  // allow configuration using `createTheme`
-  interface ThemeOptions {
-    status?: {
-      danger?: string;
-    };
-  }
+interface Props{
+  darkMode:boolean;
+  handleThemeChange: ()=>void;
 }
 
-const CustomBox = styled(Box)(({ theme }) => ({
-  color: theme.status.danger,
-  '&.Mui-checked': {
-    color: theme.status.danger,
-  },
-}));
 
 const BoxIcon = styled(Box)(({ theme }) => ({
   width: '40px',
   height: '40px',
   display: 'flex',
   justifyContent: 'center',
-  border: '1px solid #034e95',
+  // borderColor: '#034e95',//This will not override the default color of the border.
+  border: 1,
+  borderStyle: "solid",
+  borderColor: theme.palette.mode === 'dark' ? '#fff' :'#034e95',
+  // border: '1px solid background.default',
   borderRadius: '5px',
   alignItems: 'center',
   boxSizing: 'border-box',
@@ -91,29 +86,34 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
-
-const Header = () => {
-
+const Header = ( {darkMode,handleThemeChange}:Props) => {
+  const theme = useTheme(); 
+  const colorMode = React.useContext(ColorModeContext);
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
   };
   return (
-    <Box display='flex' position='fixed' justifyContent="space-between" padding='10px 18px' className="header-fpts">
+    <Box sx={
+      {
+        bgcolor:theme.palette.mode === 'dark' ? '#000' :'#fff',
+        padding:'10px 18px',
+        position:'fixed',
+        display:'flex',
+        justifyContent: 'space-between',
+        zIndex:100,
+        // borderColor: theme.palette.mode === 'dark' ? '#fff' :'#034e95',//This will not override the default color of the border.
+        // borderBottom: 1,
+        // borderStyle: "solid",
+
+      }
+    } padding='10px 18px' className="header-fpts">
       <Box className="header-left flex" >
-        <Box>
-          
-        </Box>
-        <Link href="/" sx={
-          {
-            display: 'flex',
-            fontStyle: 'italic',
-            textDecoration: 'none',
-            fontWeight: 'bold',
-            color: 'black'
-          }
-        } >
+     
+       
+        <Link href="/" className="flex italic">
           <Typography fontSize="24px" fontWeight='bold'>
             Ez</Typography>
           <Typography color="#034e95" fontSize="24px" fontWeight='bold'>
@@ -123,17 +123,24 @@ const Header = () => {
 
       </Box>
       <Box className="header-center">
-
+  
       </Box>
       <Box className="header-right" display='flex'>
+      <Box>
+      
+      <Tooltip title="Màu sắc">
+      <Switch checked={darkMode} onChange={handleThemeChange}/>
+      </Tooltip>
 
+    </Box>
         <BoxIcon>
+        <Link href="Marketwatch">
           <Tooltip title="Bảng giá">
             <IconButton >
               <InsertChartIcon style={{ color: '#034e95', fontSize: '30px' }} />
             </IconButton>
           </Tooltip>
-
+          </Link>
         </BoxIcon>
         <BoxIcon>
           <Tooltip title="Chứng khoán phái sinh">

@@ -8,23 +8,9 @@ import PaidIcon from '@mui/icons-material/Paid';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import SettingsIcon from '@mui/icons-material/Settings';
+import Link from 'next/link';
 const Sidebar = () => {
-  const arrow = document.querySelectorAll(".arrow");
-  for (var i = 0; i < arrow.length; i++) {
-    arrow[i].addEventListener("click", (e:any)=>{
-      
-   let arrowParent = e.target?.parentElement.parentElement;//selecting main parent of arrow
-   arrowParent.classList.toggle("showMenu");
-    });
-  }
-  
-  let sidebar = document.querySelector(".sidebar");
-  let sidebarBtn = document.querySelector(".bx-menu");
-  console.log(sidebarBtn);
-  sidebarBtn?.addEventListener("click", ()=>{
-    sidebar?.classList.toggle("close");
-  });
-
+ 
   return (
     <div className="sidebar close">
     <div className="logo-details" >
@@ -39,7 +25,7 @@ const Sidebar = () => {
         </a>
         <ul className="sub-menu">
          
-          <li><a href="/Report">Lịch sử đặt lệnh</a></li>
+          <li><Link href="/Report">Lịch sử đặt lệnh</Link></li>
           <li><a href="#">Lịch sử khớp lệnh</a></li>
           <li><a href="#">Lệnh chờ khớp t.toán</a></li>
         </ul>

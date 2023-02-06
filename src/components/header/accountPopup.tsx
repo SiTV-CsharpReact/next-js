@@ -101,7 +101,7 @@ const Account = () => {
       
           <Box display='flex'>
           <Image
-        alt="Vercel logo"
+        alt="Account"
         src={userMen}
         width={52}
         height={52}

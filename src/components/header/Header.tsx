@@ -1,5 +1,5 @@
 'use client'
-import { alpha, Button, IconButton, InputBase, styled, Switch, Tooltip, Typography, useTheme } from "@mui/material"
+import { alpha, Button, IconButton, InputBase, InputLabel, Menu, MenuItem, Paper, Select, SelectChangeEvent, styled, Switch, Tooltip, Typography, useTheme } from "@mui/material"
 import Box from "@mui/material/Box"
 import * as React from 'react';
 import InsertChartIcon from '@mui/icons-material/InsertChart';
@@ -9,12 +9,12 @@ import Account from "./accountPopup";
 import Noti from "./notiPopup";
 import SearchIcon from '@mui/icons-material/Search';
 import Link from "next/link";
-import { useRouter } from 'next/router';
-import SettingsIcon from '@mui/icons-material/Settings';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import ToggleColorMode from "./ToggleColorMode";
-
+import LanguageIcon from '@mui/icons-material/Language';
+import { createContext, useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
+import iconLanguageVN from "../../../public/vietnam.png"
+import iconLanguageEN from "../../../public/english.png"
+import Image from 'next/image'
 interface Props{
   darkMode:boolean;
   handleThemeChange: ()=>void;
@@ -86,15 +86,39 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 const Header = ( {darkMode,handleThemeChange}:Props) => {
+
+  //show language
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const openPopupLanguage = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseLanguage = () => {
+    setAnchorEl(null);
+  };
+
+
+
+  const [age, setAge] = useState('');
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setAge(event.target.value);
+  };
+
+  const {i18n} = useTranslation(['home','report']);
   const theme = useTheme(); 
-  const colorMode = React.useContext(ColorModeContext);
-  const [open, setOpen] = React.useState(false);
+  const colorMode = useContext(ColorModeContext);
+  const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
+  const changeLanguage = (lng : 'EN'|'VI') => {
+    i18n.changeLanguage(lng);
+    handleCloseLanguage();
+  }
   return (
     <Box sx={
       {
@@ -127,7 +151,98 @@ const Header = ( {darkMode,handleThemeChange}:Props) => {
       </Box>
       <Box className="header-right" display='flex'>
       <Box>
-      
+      <Tooltip title="Ngôn ngữ">
+      <IconButton    id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}>
+ 
+      <LanguageIcon style={{ color: '#034e95', fontSize: '25px' }} />
+            </IconButton>
+       
+      </Tooltip>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={openPopupLanguage}
+        onClose={handleCloseLanguage}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem  onClick={()=> changeLanguage('VI')} ><Image
+        alt="Account"
+        src={iconLanguageVN}
+        width={35}
+        height={35}
+        style={{
+          maxWidth: '100%',
+          height: 'auto',
+        }}
+      /><Typography paddingLeft={1}>Tiếng việt</Typography></MenuItem>
+   <MenuItem  onClick={()=> changeLanguage('EN')} value="Tiếng Anh"><Image
+        alt="Account"
+        src={iconLanguageEN}
+        width={35}
+        height={35}
+        style={{
+          maxWidth: '100%',
+          height: 'auto',
+        }}
+      /><Typography paddingLeft={1}>Tiếng anh</Typography>
+      </MenuItem>
+     
+      </Menu>
+      {/* <Box
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        '& > :not(style)': {
+          m: 1,
+          width: 128,
+          height: 128,
+        },
+      }}
+    >
+    
+      <Paper elevation={3} />
+    </Box> */}
+      </Box>
+      <Box>
+          {/* <Button>
+          <Image
+        alt="Account"
+        src={iconLanguageVN}
+        width={35}
+        height={35}
+        style={{
+          maxWidth: '100%',
+          height: 'auto',
+        }}
+      />
+          </Button> */}
+        {/* <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={age}
+          onChange={handleChange}
+          label="Age"
+        >
+        
+          <MenuItem onClick={()=> changeLanguage('VI')} value="Tiếng Việt"></MenuItem>
+          <MenuItem  onClick={()=> changeLanguage('EN')} value="Tiếng Anh">Tiếng anh<Image
+        alt="Account"
+        src={iconLanguageEN}
+        width={35}
+        height={35}
+        style={{
+          maxWidth: '100%',
+          height: 'auto',
+        }}
+      /></MenuItem>
+     
+        </Select> */}
       <Tooltip title="Màu sắc">
       <Switch checked={darkMode} onChange={handleThemeChange}/>
       </Tooltip>
@@ -135,7 +250,7 @@ const Header = ( {darkMode,handleThemeChange}:Props) => {
     </Box>
         <BoxIcon>
         <Link href="Marketwatch">
-          <Tooltip title="Bảng giá">
+          <Tooltip title= "Bảng giá">
             <IconButton >
               <InsertChartIcon style={{ color: '#034e95', fontSize: '30px' }} />
             </IconButton>

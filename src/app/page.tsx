@@ -7,8 +7,11 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import CardDiv from '@/components/common/Carddiv';
 import '../styles/dragdrop.scss'
 import { NextPage } from 'next';
+import { useTranslation } from "react-i18next";
+import { Typography } from '@mui/material';
 type Props ={};
 export default function Home(props:Props)  {
+  const {t} = useTranslation(['home','report']);
   const [data,setData] = useState(mockData);
   const onDragEnd = (result:any) => {
     if (!result.destination) return
@@ -36,6 +39,9 @@ export default function Home(props:Props)  {
   return (
    
   <>
+  <Typography>
+    {t('helo')}
+  </Typography>
     <DragDropContext onDragEnd={onDragEnd}>
             <div className="kanban">
                 {

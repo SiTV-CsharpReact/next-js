@@ -9,8 +9,9 @@ import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Link from 'next/link';
+import { useTranslation } from "react-i18next";
 const Sidebar = () => {
- 
+  const {t} = useTranslation(['home','report']);
   return (
     <div className="sidebar close">
     <div className="logo-details" >
@@ -25,9 +26,9 @@ const Sidebar = () => {
         </a>
         <ul className="sub-menu">
          
-          <li><Link href="/Report">Lịch sử đặt lệnh</Link></li>
-          <li><a href="#">Lịch sử khớp lệnh</a></li>
-          <li><a href="#">Lệnh chờ khớp t.toán</a></li>
+          <li><Link href="/Report">{t('report:menu.REPORT_LSDL')}</Link></li>
+          <li><Link href="/Report">{t('report:menu.REPORT_LSKL')}</Link></li>
+          <li><Link href="/Report">{t('menu.REPORT_LCKTT')}</Link></li>
         </ul>
       </li>
       <li>

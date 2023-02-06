@@ -1,9 +1,10 @@
 "use client"
 import Header from '@/components/header/Header'
-import Sidebar from '@/components/common/Sidebar'
+import Sidebar from '@/components/sidebar/Sidebar'
 import '../styles/globals.css'
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material'
 import { useState } from 'react'
+import '../configs/configLanguage/i18n'
 
 
 export default function RootLayout({
@@ -28,7 +29,7 @@ function handleThemeChange(){
   setDarkMode(!darkMode)
 }
   return (
-    <html lang="en" className='dark'>
+    <html lang="VI" className='dark'>
       {/*
         <head /> will contain the components returned by the nearest parent
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head

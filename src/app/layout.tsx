@@ -3,9 +3,9 @@ import Header from '@/components/header/Header'
 import Sidebar from '@/components/sidebar/Sidebar'
 import '../styles/globals.css'
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import '../configs/configLanguage/i18n'
-
+import Box from "@mui/material/Box";
 
 export default function RootLayout({
  
@@ -28,6 +28,13 @@ const theme = createTheme({
 function handleThemeChange(){
   setDarkMode(!darkMode)
 }
+const loadingLanguage = (
+  <div>
+    <span>
+      Loading...
+    </span>
+  </div>
+)
   return (
     <html lang="VI" className='dark'>
       {/*
@@ -41,9 +48,10 @@ function handleThemeChange(){
        
       <Sidebar/>
       <Header darkMode={darkMode} handleThemeChange={handleThemeChange}/>
-        <div className='home-section' id="scroll-bar">
+        <Box className='home-section' id="scroll-bar">
+        {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}> */}
         {children}
-        </div>
+        </Box>
       
         </body>
         </ThemeProvider>

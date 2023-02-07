@@ -9,8 +9,7 @@ import '../styles/dragdrop.scss'
 import { NextPage } from 'next';
 import { useTranslation } from "react-i18next";
 import { Typography } from '@mui/material';
-type Props ={};
-export default function Home(props:Props)  {
+export default function Home( ) {
   const {t} = useTranslation(['home','report']);
   const [data,setData] = useState(mockData);
   const onDragEnd = (result:any) => {

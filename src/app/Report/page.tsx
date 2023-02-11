@@ -53,9 +53,28 @@ interface TablePaginationActionsProps {
   ) => void;
 }
 
+interface Props{
+  items:{
+    time: string,
+  maCK: string,
+  loaiGD: string,
+  MB: string,
+  loaiLenh: string,
+  soLuong: string,
+  gia: string,
+  sanGD: string,
+  tinhTrang: string,
+  PthucDatLenh: string,
+  SHL: string,
+  thongBao: string
+  }
+}
+
 function TablePaginationActions(props: TablePaginationActionsProps) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
+
+
 
   const handleFirstPageButtonClick = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -304,27 +323,22 @@ const rows = [
     "Lệnh đặt thành công!"
   ),
 ];
-export const getStaticProps :GetStaticProps<ProductsProps>= async(context:GetStaticPropsContext)=>{
- const res = await fetch('http://priceboard3.fpts.com.vn/report/api/ApiData/ReportBCTS')
-  const posts = await res.json()
-  console.log(posts)
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
-  return {
-    props: {
-      posts
-    },
-  }
-}
-type ProductsProps = {
-  posts:any[]
-}
-const posts = {};
+
+
 // ].sort((a, b) => (a.calories < b.calories ? -1 : 1));
 
 
 
-export default function ClientActivityRange(posts:ProductsProps) {
+export default function ClientActivityRange(row:Props) {
+  const [products, setProducts] = useState(false);
+  useEffect(()=>{
+    //onst res =  fetch('http://localhost:8480/api/stock/v1/report/order_his/058C222210?buy_sell=ALL&exchange=ALL&stock_code=ALL&trading_account=ALL&order_status=ALL&from_date=01/10/2022&to_date=7/12/2022')
+    const res =  fetch('http://localhost:8480/api/stock/v1/report/bcts/058C222210')
+    .then(res=> res.json())
+    .then(row=>setProducts(row))
+    console.log(res)
+   },[])
+
   const {t} = useTranslation(['home','report']);
   const [value, setValue] = useState("1");
   const [age, setAge] = useState("");
@@ -354,13 +368,7 @@ export default function ClientActivityRange(posts:ProductsProps) {
     setValueDate(newValueDate);
   };
  
- useEffect(()=>{
-  //onst res =  fetch('http://localhost:8480/api/stock/v1/report/order_his/058C222210?buy_sell=ALL&exchange=ALL&stock_code=ALL&trading_account=ALL&order_status=ALL&from_date=01/10/2022&to_date=7/12/2022')
-  const res =  fetch('http://localhost:8480/api/stock/v1/report/bcts/058C222210')
-  .then(res=> res.json())
 
-  console.log(res)
- },[])
 
   // table
   const [page, setPage] = React.useState(0);
@@ -510,7 +518,7 @@ export default function ClientActivityRange(posts:ProductsProps) {
                         page * rowsPerPage + rowsPerPage
                       )
                     : rows
-                  ).map((row: any) => (
+                  ).map((row) => (
                     <TableRow key={row.SHL}>
                       <TableCell component="th" scope="row">
                         {row.time}

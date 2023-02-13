@@ -53,9 +53,28 @@ interface TablePaginationActionsProps {
   ) => void;
 }
 
+interface Props{
+  items:{
+    time: string,
+  maCK: string,
+  loaiGD: string,
+  MB: string,
+  loaiLenh: string,
+  soLuong: string,
+  gia: string,
+  sanGD: string,
+  tinhTrang: string,
+  PthucDatLenh: string,
+  SHL: string,
+  thongBao: string
+  }
+}
+
 function TablePaginationActions(props: TablePaginationActionsProps) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
+
+
 
   const handleFirstPageButtonClick = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -304,44 +323,30 @@ const rows = [
     "Lệnh đặt thành công!"
   ),
 ];
-type ProductsProps = {
-  products:any[]
-}
-// export const getStaticProps :GetStaticProps<ProductsProps>= async(context:GetStaticPropsContext)=>{
-//  const res = await fetch(`https://6110f09bc38a0900171f0ed0.mockapi.io/products`);
-//  console.log('getStaticProps')
-//   const posts = await res.json()
-//   console.log("posts")
-//   // By returning { props: { posts } }, the Blog component
-//   // will receive `posts` as a prop at build time
-//   return {
-//     props: {
-//       products: posts.map((item:any) => ({id: item.id, name: item.name}))
-//     },
-//   }
-// }
 export const getStaticProps :GetStaticProps<ProductsProps>= async(context:GetStaticPropsContext)=>{
-  const res = await fetch(`http://localhost:8480/api/stock/v1/report/bcts/058C222210`);
-  console.log('getStaticProps')
-   const posts = await res.json()
-   console.log("posts")
-   // By returning { props: { posts } }, the Blog component
-   // will receive `posts` as a prop at build time
-   return {
-     props: {
-       products: posts.map((item:any) => ({id: item.id, name: item.name}))
-     },
-   }
- }
- 
-
+ const res = await fetch('http://priceboard3.fpts.com.vn/report/api/ApiData/ReportBCTS')
+  const posts = await res.json()
+  console.log(posts)
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      posts
+    },
+  }
+}
+type ProductsProps = {
+  posts:any[]
+}
+const posts = {};
 // ].sort((a, b) => (a.calories < b.calories ? -1 : 1));
 
 const handleUpdate = () =>{
    console.log("oke")
 }
 
-export default function ClientActivityRange({products}: ProductsProps) {
+
+export default function ClientActivityRange(posts:ProductsProps) {
   const {t} = useTranslation(['home','report']);
   const [value, setValue] = useState("1");
   const [age, setAge] = useState("");
@@ -371,13 +376,13 @@ export default function ClientActivityRange({products}: ProductsProps) {
     setValueDate(newValueDate);
   };
  
-//  useEffect(()=>{
-//   //onst res =  fetch('http://localhost:8480/api/stock/v1/report/order_his/058C222210?buy_sell=ALL&exchange=ALL&stock_code=ALL&trading_account=ALL&order_status=ALL&from_date=01/10/2022&to_date=7/12/2022')
-//   const res =  fetch('http://localhost:8480/api/stock/v1/report/bcts/058C222210')
-//   .then(res=> res.json())
+ useEffect(()=>{
+  //onst res =  fetch('http://localhost:8480/api/stock/v1/report/order_his/058C222210?buy_sell=ALL&exchange=ALL&stock_code=ALL&trading_account=ALL&order_status=ALL&from_date=01/10/2022&to_date=7/12/2022')
+  const res =  fetch('http://localhost:8480/api/stock/v1/report/bcts/058C222210')
+  .then(res=> res.json())
 
-//   console.log(res)
-//  },[])
+  console.log(res)
+ },[])
 
   // table
   const [page, setPage] = React.useState(0);
@@ -527,7 +532,7 @@ export default function ClientActivityRange({products}: ProductsProps) {
                         page * rowsPerPage + rowsPerPage
                       )
                     : rows
-                  ).map((row: any) => (
+                  ).map((row) => (
                     <TableRow key={row.SHL}>
                       <TableCell component="th" scope="row">
                         {row.time}

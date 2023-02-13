@@ -10,7 +10,7 @@ import Noti from "./notiPopup";
 import SearchIcon from '@mui/icons-material/Search';
 import Link from "next/link";
 import LanguageIcon from '@mui/icons-material/Language';
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import iconLanguageVN from "../../../public/vietnam.png"
 import iconLanguageEN from "../../../public/english.png"
@@ -136,6 +136,26 @@ const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 const Header = ( {darkMode,handleThemeChange}:Props) => {
 
+// scroll set height 
+const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+
   //show language
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openPopupLanguage = Boolean(anchorEl);
@@ -179,7 +199,7 @@ const Header = ( {darkMode,handleThemeChange}:Props) => {
         // borderStyle: "solid",
 
       }
-    } padding='10px 18px' className="header-fpts">
+      } padding='10px 18px' className={`${isScrolled && 'bg-[#141414]'}` && 'header-fpts'}>
       <Box className="header-left flex" >
      
        

@@ -304,27 +304,44 @@ const rows = [
     "Lệnh đặt thành công!"
   ),
 ];
-export const getStaticProps :GetStaticProps<ProductsProps>= async(context:GetStaticPropsContext)=>{
- const res = await fetch('http://priceboard3.fpts.com.vn/report/api/ApiData/ReportBCTS')
-  const posts = await res.json()
-  console.log(posts)
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
-  return {
-    props: {
-      posts
-    },
-  }
-}
 type ProductsProps = {
-  posts:any[]
+  products:any[]
 }
-const posts = {};
+// export const getStaticProps :GetStaticProps<ProductsProps>= async(context:GetStaticPropsContext)=>{
+//  const res = await fetch(`https://6110f09bc38a0900171f0ed0.mockapi.io/products`);
+//  console.log('getStaticProps')
+//   const posts = await res.json()
+//   console.log("posts")
+//   // By returning { props: { posts } }, the Blog component
+//   // will receive `posts` as a prop at build time
+//   return {
+//     props: {
+//       products: posts.map((item:any) => ({id: item.id, name: item.name}))
+//     },
+//   }
+// }
+export const getStaticProps :GetStaticProps<ProductsProps>= async(context:GetStaticPropsContext)=>{
+  const res = await fetch(`http://localhost:8480/api/stock/v1/report/bcts/058C222210`);
+  console.log('getStaticProps')
+   const posts = await res.json()
+   console.log("posts")
+   // By returning { props: { posts } }, the Blog component
+   // will receive `posts` as a prop at build time
+   return {
+     props: {
+       products: posts.map((item:any) => ({id: item.id, name: item.name}))
+     },
+   }
+ }
+ 
+
 // ].sort((a, b) => (a.calories < b.calories ? -1 : 1));
 
+const handleUpdate = () =>{
+   console.log("oke")
+}
 
-
-export default function ClientActivityRange(posts:ProductsProps) {
+export default function ClientActivityRange({products}: ProductsProps) {
   const {t} = useTranslation(['home','report']);
   const [value, setValue] = useState("1");
   const [age, setAge] = useState("");
@@ -354,13 +371,13 @@ export default function ClientActivityRange(posts:ProductsProps) {
     setValueDate(newValueDate);
   };
  
- useEffect(()=>{
-  //onst res =  fetch('http://localhost:8480/api/stock/v1/report/order_his/058C222210?buy_sell=ALL&exchange=ALL&stock_code=ALL&trading_account=ALL&order_status=ALL&from_date=01/10/2022&to_date=7/12/2022')
-  const res =  fetch('http://localhost:8480/api/stock/v1/report/bcts/058C222210')
-  .then(res=> res.json())
+//  useEffect(()=>{
+//   //onst res =  fetch('http://localhost:8480/api/stock/v1/report/order_his/058C222210?buy_sell=ALL&exchange=ALL&stock_code=ALL&trading_account=ALL&order_status=ALL&from_date=01/10/2022&to_date=7/12/2022')
+//   const res =  fetch('http://localhost:8480/api/stock/v1/report/bcts/058C222210')
+//   .then(res=> res.json())
 
-  console.log(res)
- },[])
+//   console.log(res)
+//  },[])
 
   // table
   const [page, setPage] = React.useState(0);
@@ -480,7 +497,7 @@ export default function ClientActivityRange(posts:ProductsProps) {
               </Stack>
             </Box>
 
-            <Button sx={{marginTop:'8px'}} size="small" variant="outlined">{t('home:base.CapNhat')}</Button>
+            <Button  sx={{marginTop:'8px'}} size="small" variant="outlined"    onClick={() => {handleUpdate()}} >{t('home:base.CapNhat')}</Button>
           </Box>
           <Box marginTop="50px">
             <TableContainer component={Paper}>

@@ -6,6 +6,8 @@ import { createTheme, CssBaseline, ThemeProvider } from '@mui/material'
 import { Suspense, useState } from 'react'
 import '../configs/configLanguage/i18n'
 import Box from "@mui/material/Box";
+import { Provider } from 'react-redux';
+import { store_0001 } from '@/store/Store'
 
 export default function RootLayout({
  
@@ -45,14 +47,14 @@ const loadingLanguage = (
       <ThemeProvider theme={theme}>
       <CssBaseline />
       <body >
-       
+      <Provider store={store_0001}>
       <Sidebar/>
       <Header darkMode={darkMode} handleThemeChange={handleThemeChange}/>
         <Box className='home-section' id="scroll-bar">
         {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}> */}
         {children}
         </Box>
-      
+        </Provider>
         </body>
         </ThemeProvider>
     </html>

@@ -1,0 +1,3 @@
+import axios from "axios";
+
+export const getDataBCTS<ModelBCTS | null> = () => axios.get('localhost:8480/api/stock/v1/bcts/058C222210')

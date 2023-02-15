@@ -3,6 +3,42 @@
         "REPORT_LSKL":"Lịch sử khớp lệnh",
         "REPORT_LSDL":"Lịch sử đặt lệnh",
         "REPORT_LCKTT":"Lệnh khớp chờ t.toán"
-    }
-  
+    },
+    "BCTS":{
+        "REPORT_TIMEUPDATES":"Dữ liệu cập nhật gần nhất:",
+        "REPORT_GTTSR":"GIÁ TRỊ TÀI SẢN RÒNG (I + II + III)",
+        "REPORT_CK_":"I. CHỨNG KHOÁN",
+        "REPORT_TIEN_":"II. TIỀN ",
+        "REPORT_DNVKQ_":"III. DƯ NỢ VAY KÝ QUỸ",
+        "REPORT_CTCK":"CHI TIẾT CHỨNG KHOÁN",
+        "REPORT_LLDK":"LÃI/LỖ DỰ KIẾN",
+        "REPORT_CKCS":"Chứng khoán có sẵn",
+        "REPORT_CKMCV":"Chứng khoán mua chờ về",
+        "REPORT_CKQCV":"Chứng khoán quyền chờ về",
+        "REPORT_CKHC":"Chứng khoán hạn chế ",
+        "REPORT_TTTK":"Tiền trong tài khoản",
+        "REPORT_TBCTT":"Tiền bán chờ thanh toán",
+        "REPORT_TCTCV":"Tiền cổ tức chờ về",
+        "REPORT_TCVK":"Tiền chờ về khác",
+        "REPORT_TGTCV":"Tiền gửi, tiền cho vay",
+        "REPORT_MACK":"Mã CK",
+        "REPORT_CKCS_":"CK có sẵn",
+        "REPORT_CKMCV_":"CK mua chờ về",
+        "REPORT_CKQCV_":"CK quyền chờ về",
+        "REPORT_CKCCNH":"CK cầm cố NH",
+        "REPORT_CKHCGD":"CK hạn chế GD",
+        "REPORT_TKL":"Tổng KL",
+        "REPORT_GTT":"Giá TT",
+        "REPORT_TT":"Thành tiền",
+        "REPORT_GVTB":"Giá vốn TB",
+        "REPORT_TGV":"Tổng giá vốn",
+        "REPORT_LL": "Lãi/Lỗ",
+        "REPORT_PTLL_":"% Lãi/Lỗ",
+        "REPORT_CCV":"Cơ cấu vốn",
+        "REPORT_TTDM":"Tỉ trọng DM",
+        "REPORT_TKGTSR":"THÔNG KÊ GIÁ TRỊ TÀI SẢN RÒNG",
+        "REPORT_NGAY":"Ngày",
+        "REPORT_TONG":"Tổng"
+      
+    } 
 }

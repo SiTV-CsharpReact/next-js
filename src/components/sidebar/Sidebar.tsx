@@ -11,8 +11,10 @@ import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useTranslation } from "react-i18next";
 import '../../styles/sidebar.css'
-import { Box, List, ListItem } from '@mui/material'
-
+import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material'
+import colorConfigs from '@/configs/colorConfigs';
+import CloseIcon from "@mui/icons-material/Close";
+import { useState } from 'react';
 const ListSideBar = styled(ListItem)(({ theme }) => ({
   paddingLeft:0
 
@@ -20,8 +22,142 @@ const ListSideBar = styled(ListItem)(({ theme }) => ({
 
 export default function Sidebar() {
   const {t} = useTranslation(['home','report']);
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <Box className="sidebar close">
+      <Box       
+        onClick={() => setOpen(true)}
+        style={{ cursor: "pointer" }}
+      >
+        <MenuIcon  style={{
+                    margin:14,
+                    fontSize:30,
+                    color: "#fff",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                  }}/>
+       
+      </Box>     .
+      <Drawer open={open} anchor={"left"} onClose={() => setOpen(false)}>
+        <Box
+          sx={{
+           
+            backgroundColor: colorConfigs.sidebar.colorSBRight,
+            height: "100%",
+           
+          }}
+        >
+          <Box>
+            {/* Header */}
+            <Box
+              sx={{
+                backgroundColor: colorConfigs.sidebar.colorSB,
+                height: 60,
+                padding: "6px 10px",
+              }}
+            >
+              <Box>
+                <CloseIcon
+                  style={{
+                    color: "#fff",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                    float: "right"
+                  }}
+                  onClick={handleClose}
+                />
+              </Box>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                paddingTop="5px"
+              >
+              
+                
+              </Box>
+            </Box>
+            {/* body */}
+            <Box
+              sx={{
+                backgroundColor: colorConfigs.sidebar.colorSBRightContent,
+              }}
+            >
+              <nav aria-label="main mailbox folders">
+                <List style={{ color: "#fff" }} disablePadding>
+                  <ListItem
+                    disablePadding
+                    style={{ borderBottom: "1px solid #2F2F2F" }}
+                  >
+                    <ListItemButton>
+                   
+                     <Link href="/">Trang chủ</Link>
+                    </ListItemButton>
+                  </ListItem>
+                  <Divider />
+                  <ListItem
+                    disablePadding
+                    style={{ borderBottom: "1px solid #2F2F2F" }}
+                  >
+                    <ListItemButton>
+                   
+                    <Link href="/BCTS">Báo cáo tài sản</Link>
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem
+                    disablePadding
+                    style={{ borderBottom: "1px solid #2F2F2F" }}
+                  >
+                    <ListItemButton>
+                    
+                    <Link href="/BCBDTSR">Báo cáo biến động tài sản ròng</Link>
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem
+                    disablePadding
+                    style={{ borderBottom: "1px solid #2F2F2F" }}
+                  >
+                    <ListItemButton>
+                    
+                    <Link href="/LSDL">Lịch sử đặt lệnh</Link>
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+              </nav>
+            </Box>
+
+            {/* Footer */}
+            <Box
+              sx={{
+                position: "absolute",
+                bottom: 0,
+                width: "100%",
+                height: 40,
+                backgroundColor: colorConfigs.sidebar.colorSBRightContent,
+              }}
+            >
+              <Box
+                sx={{
+                  position: "relative",
+                  height: "100%",
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <Typography color="#fff">
+                  Thoát
+               
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      </Drawer>
       </Box>
   //    <Box className="sidebar close">
   //   <Box className="logo-details" >

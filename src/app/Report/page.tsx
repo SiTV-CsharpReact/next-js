@@ -6,6 +6,7 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+import {useForm} from 'react-hook-form';
 import {
   FormControl,
   InputLabel,
@@ -43,6 +44,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { GetStaticProps, GetStaticPropsContext } from 'next'
+import { ModelLSDL, ReportLSDLModel } from "@/models/Report/ReportLSDL";
 interface TablePaginationActionsProps {
   count: number;
   page: number;
@@ -181,148 +183,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14,
   },
 }));
-const rows = [
-  createData(
-    "24/08/2022 12:21:20",
-    "ABC",
-    "EzMarPro",
-    "Bán	",
-    "Lệnh mới",
-    "200",
-    "12,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15321",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAA",
-    "EzMargin",
-    "Mua	",
-    "Lệnh mới",
-    "300",
-    "13,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15322",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAV",
-    "EzMarPro",
-    "Mua	",
-    "Lệnh mới",
-    "200",
-    "1,000",
-    "HNX",
-    "Đã khớp",
-    "INTERNET",
-    "15323",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAA",
-    "EzMarPro",
-    "Mua	",
-    "Lệnh mới",
-    "600",
-    "12,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15324",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAA",
-    "EzMarPro",
-    "Mua	",
-    "Lệnh mới",
-    "200",
-    "12,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15325",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "ABC",
-    "EzMarPro",
-    "Bán	",
-    "Lệnh mới",
-    "200",
-    "12,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15326",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAA",
-    "EzMargin",
-    "Mua	",
-    "Lệnh mới",
-    "300",
-    "13,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15327",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAV",
-    "EzMarPro",
-    "Mua	",
-    "Lệnh mới",
-    "200",
-    "1,000",
-    "HNX",
-    "Đã khớp",
-    "INTERNET",
-    "15320",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAA",
-    "EzMarPro",
-    "Mua	",
-    "Lệnh mới",
-    "600",
-    "12,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15330",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAA",
-    "EzMarPro",
-    "Mua	",
-    "Lệnh mới",
-    "200",
-    "12,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15328",
-    "Lệnh đặt thành công!"
-  ),
-];
+
 
 
 // ].sort((a, b) => (a.calories < b.calories ? -1 : 1));
@@ -330,12 +191,13 @@ const rows = [
 
 
 export default function ClientActivityRange(row:Props) {
-  const [products, setProducts] = useState(false);
+  const [products, setProducts] = useState<ModelLSDL[]>([])
+  // const [products, setProducts] = useState<ReportLSDLModel | null>(null);
   useEffect(()=>{
     //onst res =  fetch('http://localhost:8480/api/stock/v1/report/order_his/058C222210?buy_sell=ALL&exchange=ALL&stock_code=ALL&trading_account=ALL&order_status=ALL&from_date=01/10/2022&to_date=7/12/2022')
-    const res =  fetch('http://localhost:8480/api/stock/v1/report/bcts/058C222210')
+    const res =  fetch('http://localhost:8480/api/stock/v1/report/order_his/058C222210?buy_sell=ALL&exchange=ALL&stock_code=ALL&trading_account=ALL&order_status=ALL&from_date=01/10/2022&to_date=7/12/2022')
     .then(res=> res.json())
-    .then(row=>setProducts(row))
+    .then(res=>setProducts(res))
     console.log(res)
    },[])
 
@@ -376,7 +238,7 @@ export default function ClientActivityRange(row:Props) {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -512,13 +374,7 @@ export default function ClientActivityRange(row:Props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {(rowsPerPage > 0
-                    ? rows.slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                    : rows
-                  ).map((row) => (
+                  { products.map((row:any) => (
                     <TableRow key={row.SHL}>
                       <TableCell component="th" scope="row">
                         {row.time}
@@ -574,7 +430,7 @@ export default function ClientActivityRange(row:Props) {
                         { label: "All", value: -1 },
                       ]}
                       colSpan={15}
-                      count={rows.length}
+                      count={products.length}
                       rowsPerPage={rowsPerPage}
                       page={page}
                       SelectProps={{

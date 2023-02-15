@@ -3,6 +3,43 @@
         "REPORT_LSKL":"Matched Order History",      
         "REPORT_LSDL":"Order Placement History",
         "REPORT_LCKTT":"Matched Orders Pending for Settlement"
-    }
-  
+    
+    },
+    "BCTS":{
+        "REPORT_TIMEUPDATES":"Latest updated data:",
+        "REPORT_GTTSR":"NET ASSET VALUE (I+II+III)",
+        "REPORT_CK_":"I. SECURITIES",
+        "REPORT_TIEN_":"II. CASH",
+        "REPORT_DNVKQ_":"III. MARGIN LOANS",
+        "REPORT_CTCK":"STOCK DETAILS",
+        "REPORT_LLDK":"EXPECTED PROFIT/LOSS",
+        "REPORT_CKCS":"Available Stock",
+        "REPORT_CKMCV":"Securities Pending for Settlement",
+        "REPORT_CKQCV":"Securities pending for corporate actions",
+        "REPORT_CKHC":"Restricted securities",
+        "REPORT_TTTK":"Available Cash",
+        "REPORT_TBCTT":"Sell proceeds pending for settlement",
+        "REPORT_TCTCV":"Cash Dividend pending for settlement",
+        "REPORT_TCVK":"Other Cash pending for settlement",
+        "REPORT_TGTCV":"Savings, lendings",
+        "REPORT_MACK":"Symbol",
+        "REPORT_CKCS_":"Available Stock",
+        "REPORT_CKMCV_":"Securities Pending for settelement",
+        "REPORT_CKQCV_":"Securities Pending for Corporate Actions",
+        "REPORT_CKCCNH":" Securities Mortgaged at Banks",
+        "REPORT_CKHCGD":" Restricted securities",
+        "REPORT_TKL":"Total quantity",
+        "REPORT_GTT":"Market price",
+        "REPORT_TT":"Total Value",
+        "REPORT_GVTB":"Average cost of capital",
+        "REPORT_TGV":"Total Cost",
+        "REPORT_LL": "Profit/Loss",
+        "REPORT_PTLL_":"% Profit/Loss",
+        "REPORT_CCV":"Capital structure",
+        "REPORT_TTDM":"Portfolio ratio",
+        "REPORT_TKGTSR":"NET ASSET VALUE STATISTIC",
+        "REPORT_NGAY":"days",
+        "REPORT_TONG":"Total"
+      
+    } 
 }

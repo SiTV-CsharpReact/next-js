@@ -6,6 +6,7 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+import { useNavigate } from "react-router-dom";
 import {
   FormControl,
   InputLabel,
@@ -42,7 +43,14 @@ import colorConfigs from "@/configs/colorConfigs";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
-import { GetStaticProps, GetStaticPropsContext } from 'next'
+import { GetStaticProps, GetStaticPropsContext } from "next";
+
+import { Filter, HisOrder } from "@/models/historyorder";
+
+import { useForm, SubmitHandler } from "react-hook-form";
+import { list } from "@/api/hostoryorder";
+import inputDatePicker from "@/components/common/inputDatePicker";
+import InputDatePicker from "@/components/common/inputDatePicker";
 interface TablePaginationActionsProps {
   count: number;
   page: number;
@@ -52,29 +60,10 @@ interface TablePaginationActionsProps {
     newPage: number
   ) => void;
 }
-
-interface Props{
-  items:{
-    time: string,
-  maCK: string,
-  loaiGD: string,
-  MB: string,
-  loaiLenh: string,
-  soLuong: string,
-  gia: string,
-  sanGD: string,
-  tinhTrang: string,
-  PthucDatLenh: string,
-  SHL: string,
-  thongBao: string
-  }
-}
-
+const listSanGD: string[] = [];
 function TablePaginationActions(props: TablePaginationActionsProps) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
-
-
 
   const handleFirstPageButtonClick = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -142,35 +131,6 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-function createData(
-  time: string,
-  maCK: string,
-  loaiGD: string,
-  MB: string,
-  loaiLenh: string,
-  soLuong: string,
-  gia: string,
-  sanGD: string,
-  tinhTrang: string,
-  PthucDatLenh: string,
-  SHL: string,
-  thongBao: string
-) {
-  return {
-    time,
-    maCK,
-    loaiGD,
-    MB,
-    loaiLenh,
-    soLuong,
-    gia,
-    sanGD,
-    tinhTrang,
-    PthucDatLenh,
-    SHL,
-    thongBao,
-  };
-}
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor:
@@ -181,182 +141,28 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14,
   },
 }));
-const rows = [
-  createData(
-    "24/08/2022 12:21:20",
-    "ABC",
-    "EzMarPro",
-    "Bán	",
-    "Lệnh mới",
-    "200",
-    "12,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15321",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAA",
-    "EzMargin",
-    "Mua	",
-    "Lệnh mới",
-    "300",
-    "13,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15322",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAV",
-    "EzMarPro",
-    "Mua	",
-    "Lệnh mới",
-    "200",
-    "1,000",
-    "HNX",
-    "Đã khớp",
-    "INTERNET",
-    "15323",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAA",
-    "EzMarPro",
-    "Mua	",
-    "Lệnh mới",
-    "600",
-    "12,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15324",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAA",
-    "EzMarPro",
-    "Mua	",
-    "Lệnh mới",
-    "200",
-    "12,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15325",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "ABC",
-    "EzMarPro",
-    "Bán	",
-    "Lệnh mới",
-    "200",
-    "12,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15326",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAA",
-    "EzMargin",
-    "Mua	",
-    "Lệnh mới",
-    "300",
-    "13,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15327",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAV",
-    "EzMarPro",
-    "Mua	",
-    "Lệnh mới",
-    "200",
-    "1,000",
-    "HNX",
-    "Đã khớp",
-    "INTERNET",
-    "15320",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAA",
-    "EzMarPro",
-    "Mua	",
-    "Lệnh mới",
-    "600",
-    "12,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15330",
-    "Lệnh đặt thành công!"
-  ),
-  createData(
-    "24/08/2022 12:21:20",
-    "AAA",
-    "EzMarPro",
-    "Mua	",
-    "Lệnh mới",
-    "200",
-    "12,000",
-    "HSX",
-    "Đã khớp",
-    "INTERNET",
-    "15328",
-    "Lệnh đặt thành công!"
-  ),
-];
-export const getStaticProps :GetStaticProps<ProductsProps>= async(context:GetStaticPropsContext)=>{
- const res = await fetch('http://priceboard3.fpts.com.vn/report/api/ApiData/ReportBCTS')
-  const posts = await res.json()
-  console.log(posts)
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
-  return {
-    props: {
-      posts
-    },
-  }
-}
+
+
 type ProductsProps = {
-  posts:any[]
-}
+  posts: any[];
+};
 const posts = {};
 // ].sort((a, b) => (a.calories < b.calories ? -1 : 1));
 
-const handleUpdate = () =>{
-   console.log("oke")
-}
-
-
-export default function ClientActivityRange(posts:ProductsProps) {
-  const {t} = useTranslation(['home','report']);
+export default function ClientActivityRange(posts: ProductsProps) {
+  const { t } = useTranslation(["home", "report"]);
   const [value, setValue] = useState("1");
   const [age, setAge] = useState("");
   const [valueSanGD, setValueSanGD] = useState("");
   const [valueMaCK, setValueMaCK] = useState("");
   const [valueTTLenh, setValueTTLenh] = useState("");
-  const [valueDate, setValueDate] = useState<Dayjs | null>(dayjs());
+  const c=dayjs()
+  const [valueDateFrom, setValueDateFrom] = useState<Dayjs | null>(c.month(-1));
+  const [valueDateTo, setValueDateTo] = useState<Dayjs | null>(c);
   const handleChangeS = (event: SelectChangeEvent) => {
     setAge(event.target.value as string);
   };
+  const handleUpdate = () => {};
   // san GD
   const handleChangeSanGD = (event: SelectChangeEvent) => {
     setValueSanGD(event.target.value);
@@ -372,25 +178,27 @@ export default function ClientActivityRange(posts:ProductsProps) {
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
-  const handleChangeDate = (newValueDate: Dayjs | null) => {
-    setValueDate(newValueDate);
+  const handleChangeDateFrom = (newValueDateFrom: Dayjs | null) => {
+    setValueDateFrom(newValueDateFrom);
   };
- 
- useEffect(()=>{
-  //onst res =  fetch('http://localhost:8480/api/stock/v1/report/order_his/058C222210?buy_sell=ALL&exchange=ALL&stock_code=ALL&trading_account=ALL&order_status=ALL&from_date=01/10/2022&to_date=7/12/2022')
-  const res =  fetch('http://localhost:8480/api/stock/v1/report/bcts/058C222210')
-  .then(res=> res.json())
-
-  console.log(res)
- },[])
-
-  // table
+  const handleChangeDateTo = (newValueDateTo: Dayjs | null) => {
+    setValueDateTo(newValueDateTo);
+  };
+  const [product, setProduct] = useState<HisOrder[]>([]);
+  useEffect(() => {
+    const getProduct = async () => {
+      const { data } = await list();
+      setProduct(data);
+      console.log(data);
+    };
+    getProduct();
+  }, []);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - product.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -405,173 +213,251 @@ export default function ClientActivityRange(posts:ProductsProps) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Filter>();
+  const onHandleSubmit =(data:any)=>{ 
+   
+    console.log(data)}
+
+
+  //   const { register, handleSubmit } = useForm();      const onHandleSubmit =(data:any)=>{       console.log(data)      }
+  
 
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label={t('report:menu.REPORT_LSDL')} value="1" />
-            <Tab label={t('report:menu.REPORT_LSKL')} value="2" />
-            <Tab label={t('report:menu.REPORT_LCKTT')} value="3" />
+            <Tab label={t("report:menu.REPORT_LSDL")} value="1" />
+            <Tab label={t("report:menu.REPORT_LSKL")} value="2" />
+            <Tab label={t("report:menu.REPORT_LCKTT")} value="3" />
           </TabList>
         </Box>
         <TabPanel value="1">
-        {t('report:menu.REPORT_LSDL')}
-          <Box display="flex" sx={{ float: "right" }}>
-            <Box display='flex'> 
-            <Box sx={{ minWidth: 100, marginRight: "20px" }}>
-              <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                <InputLabel id="demo-simple-select-standard-label">
-                {t('home:base.SanGD')} 
-                </InputLabel>
+          {t("report:menu.REPORT_LSDL")}
 
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  value={valueSanGD}
-                  onChange={handleChangeSanGD}
-                  label="Age"
-                >
-                  <MenuItem value={10}>   {t('home:base.TatCa')} </MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
+          <Box
+            display="flex"
+            sx={{ float: "right" }}
+            // onSubmit={handleSubmit(onSubmit)}
+          >
+            <Box display="flex" component="form" onSubmit={handleSubmit(onHandleSubmit)}>
+              <Box sx={{ minWidth: 100, marginRight: "20px" }}>
+                <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                  <InputLabel id="demo-simple-select-standard-label">
+                    {t("home:base.SanGD")}
+                  </InputLabel>
 
-            <Box sx={{ minWidth: 80, marginRight: "20px" }}>
-              <FormControl variant="standard" sx={{ minWidth: 80 }}>
-                <InputLabel id="demo-simple-select-standard-label">
-                {t('home:base.Stock')}
-                </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
+                    // value={valueSanGD}
+                    {...register('SanGD')}
+                    label="Age"
+                  >
+                    <MenuItem value="Tat ca"> {t("home:base.TatCa")} </MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
 
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  value={valueMaCK}
-                  onChange={handleChangeMaCK}
-                  label="Age"
-                >
-                  <MenuItem value={10}>     {t('home:base.TatCa')}</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            <Box sx={{ minWidth: 140, marginRight: "20px" }}>
-              <FormControl variant="standard" sx={{ minWidth: 140 }}>
-                <InputLabel id="demo-simple-select-standard-label">
-                {t('home:base.TinhTrangLenh')}
-                </InputLabel>
+              <Box sx={{ minWidth: 80, marginRight: "20px" }}>
+                <FormControl variant="standard" sx={{ minWidth: 80 }}>
+                  <InputLabel id="demo-simple-select-standard-label">
+                    {t("home:base.Stock")}
+                  </InputLabel>
 
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  value={valueTTLenh}
-                  onChange={handleChangeTTLenh}
-                  label="Age"
-                >
-                  <MenuItem value={10}>{t('home:base.TatCa')}</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            </Box>
-           
-            <Box sx={{ width: 155, marginRight: "20px",marginTop:"8px" }}>
+                  <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
+                   
+                    {...register('MaCK')}
+                    label="Age"
+                  >
+                    <MenuItem value="Tat ca"> {t("home:base.TatCa")}</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              <Box sx={{ minWidth: 140, marginRight: "20px" }}>
+                <FormControl variant="standard" sx={{ minWidth: 140 }}>
+                  <InputLabel id="demo-simple-select-standard-label">
+                    {t("home:base.TinhTrangLenh")}
+                  </InputLabel>
+
+                  <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
+                    // value={valueTTLenh}
+                    {...register('TinhTrangLenh')}
+                    label="Age"
+                  >
+                    <MenuItem value="Tat ca">{t("home:base.TatCa")}</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              <Box sx={{ width: 155, marginRight: "20px", marginTop: "8px" }}>
               <Stack>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DesktopDatePicker
-                    label=         {t('home:base.TuNgay')}
-                    inputFormat="MM/DD/YYYY"
-                    value={valueDate}
-                    onChange={handleChangeDate}
-                    renderInput={(params: any) => <TextField size="small" {...params} />}
-                  />
+                      label={t("home:base.TuNgay")}
+                      inputFormat="MM/DD/YYYY"
+                      value={valueDateFrom}
+                      onChange={handleChangeDateFrom}
+                      renderInput={(params: any) => (
+                        <TextField size="small" {...params} {...register('DateForm')} />
+                      )}                />
                 </LocalizationProvider>
               </Stack>
             </Box>
-            <Box  sx={{ width: 155, marginRight: "20px" ,marginTop:"8px"}}>
-              <Stack  >
-                <LocalizationProvider dateAdapter={AdapterDayjs} >
+            <Box sx={{ width: 155, marginRight: "20px", marginTop: "8px" }}>
+              <Stack>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DesktopDatePicker
-                    label=      {t('home:base.DenNgay')}
-                    
-                    inputFormat="MM/DD/YYYY"
-                    value={valueDate}
-                    onChange={handleChangeDate}
-                    renderInput={(params: any) => <TextField size="small" {...params} />}
-                  />
+                      label={t("home:base.DenNgay")}
+                      inputFormat="MM/DD/YYYY"
+                      value={valueDateTo}
+                      onChange={handleChangeDateTo}
+                      renderInput={(params: any) => (
+                        <TextField size="small" {...params} {...register('DateTo')} />
+                      )}                 />
                 </LocalizationProvider>
               </Stack>
             </Box>
+            <Box sx={{ minWidth: 140, marginRight: "20px" }}>
+                <FormControl variant="standard" sx={{ minWidth: 140 }}>
+                  <InputLabel id="demo-simple-select-standard-label">
+                  {t("home:base.ThuTuSapXep")}
+                  </InputLabel>
 
-            <Button  sx={{marginTop:'8px'}} size="small" variant="outlined"    onClick={() => {handleUpdate()}} >{t('home:base.CapNhat')}</Button>
+                  <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
+                    // value={valueTTLenh}
+                    {...register('SortBy')}
+                    label="Age"
+                  >
+                    <MenuItem value="ASC">{t("home:base.TatCa")}</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+                  <input type="submit" value="Cập nhật"></input>
+            </Box>
+           
+{/*           
+            <Button
+              sx={{ marginTop: "8px" }}
+              size="small"
+              variant="outlined"
+              onClick={() => {
+                handleUpdate();
+              }}
+            >
+              {t("home:base.CapNhat")}
+            </Button>
+            <FlatButton
+        type="submit"
+        label="Reset"
+        secondary={true}
+        style={{ float: 'left' }}
+        /> */}
           </Box>
+
           <Box marginTop="50px">
             <TableContainer component={Paper}>
               <Table aria-label="custom pagination table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell>{t('home:base.Time')}</StyledTableCell>
-                    <StyledTableCell align="right">{t('home:base.Stock')}</StyledTableCell>
-                    <StyledTableCell align="right">{t('home:base.LoaiGD')}</StyledTableCell>
-                    <StyledTableCell align="right">{t('home:base.MuaBan')}</StyledTableCell>
-                    <StyledTableCell align="right">{t('home:base.LoaiLenh')}</StyledTableCell>
-                    <StyledTableCell align="right">{t('home:base.SoLuong')}</StyledTableCell>
-                    <StyledTableCell align="right">{t('home:base.Gia')}</StyledTableCell>
-                    <StyledTableCell align="right">{t('home:base.SanGD')}</StyledTableCell>
-                    <StyledTableCell align="right">{t('home:base.TinhTrang')}</StyledTableCell>
+                    <StyledTableCell>{t("home:base.Time")}</StyledTableCell>
                     <StyledTableCell align="right">
-                    {t('home:base.PhuongThucDatLenh')}
+                      {t("home:base.Stock")}
                     </StyledTableCell>
-                    <StyledTableCell align="right">{t('home:base.SHL')}</StyledTableCell>
-                    <StyledTableCell align="right">{t('home:base.ThongBao')}</StyledTableCell>
+                    <StyledTableCell align="right">
+                      {t("home:base.LoaiGD")}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {t("home:base.MuaBan")}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {t("home:base.LoaiLenh")}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {t("home:base.SoLuong")}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {t("home:base.Gia")}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {t("home:base.SanGD")}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {t("home:base.TinhTrang")}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {t("home:base.PhuongThucDatLenh")}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {t("home:base.SHL")}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {t("home:base.ThongBao")}
+                    </StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {(rowsPerPage > 0
-                    ? rows.slice(
+                    ? product.slice(
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
                       )
-                    : rows
-                  ).map((row) => (
-                    <TableRow key={row.SHL}>
-                      <TableCell component="th" scope="row">
-                        {row.time}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row.maCK}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row.loaiGD}
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        {row.MB}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row.loaiLenh}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row.soLuong}
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        {row.gia}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row.sanGD}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row.sanGD}
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        {row.PthucDatLenh}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row.SHL}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row.thongBao}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                    : product
+                  ).map(
+                    (product) => (
+                      listSanGD.push(product.AEXCHANGE),
+                     
+                      (
+                        <TableRow key={product.AORDERID}>
+                          <TableCell component="th" scope="row">
+                            {product.ATRANID}
+                          </TableCell>
+                          <TableCell style={{ width: 160 }} align="right">
+                            {product.ACLIENTCODE}
+                          </TableCell>
+                          <TableCell style={{ width: 160 }} align="right">
+                            {product.AQUANTITY}
+                          </TableCell>
+                          <TableCell component="th" scope="row">
+                            {product.ATRADEDQTY}
+                          </TableCell>
+                          <TableCell style={{ width: 160 }} align="right">
+                            {product.AREMAININGQTY}
+                          </TableCell>
+                          <TableCell style={{ width: 160 }} align="right">
+                            {product.APRICETYPE}
+                          </TableCell>
+                          <TableCell component="th" scope="row">
+                            {product.AORDERSTATUS_VN}
+                          </TableCell>
+                          <TableCell style={{ width: 160 }} align="right">
+                            {product.AERRORCODE}
+                          </TableCell>
+                          <TableCell style={{ width: 160 }} align="right">
+                            {product.AMODIFYQTY}
+                          </TableCell>
+                          <TableCell component="th" scope="row">
+                            {product.ADATETIME}
+                          </TableCell>
+                          <TableCell style={{ width: 160 }} align="right">
+                            {product.ALASTTRADEDTIME}
+                          </TableCell>
+                          <TableCell style={{ width: 160 }} align="right">
+                            {product.AEXCHANGEORDERNO}
+                          </TableCell>
+                        </TableRow>
+                      )
+                    )
+                  )}
                   {emptyRows > 0 && (
                     <TableRow style={{ height: 53 * emptyRows }}>
                       <TableCell colSpan={6} />
@@ -588,7 +474,7 @@ export default function ClientActivityRange(posts:ProductsProps) {
                         { label: "All", value: -1 },
                       ]}
                       colSpan={15}
-                      count={rows.length}
+                      count={product.length}
                       rowsPerPage={rowsPerPage}
                       page={page}
                       SelectProps={{
@@ -607,14 +493,10 @@ export default function ClientActivityRange(posts:ProductsProps) {
             </TableContainer>
           </Box>
         </TabPanel>
-        <TabPanel value="2">    {t('report:menu.REPORT_LSKL')}</TabPanel>
-        <TabPanel value="3">    {t('report:menu.REPORT_LCKTT')} </TabPanel>
+        <TabPanel value="2"> {t("report:menu.REPORT_LSKL")}</TabPanel>
+        <TabPanel value="3"> {t("report:menu.REPORT_LCKTT")} </TabPanel>
       </TabContext>
     </Box>
   );
 }
 
-// export const getStacticProps: GetStacticProps= async (context) =>{
-//   const {data} = await axios.get('http://priceboard3.fpts.com.vn/report/api/ApiData/ReportBCTS');
-//   console.log(data);
-// }

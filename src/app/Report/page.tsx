@@ -142,7 +142,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-
 type ProductsProps = {
   posts: any[];
 };
@@ -156,8 +155,8 @@ export default function ClientActivityRange(posts: ProductsProps) {
   const [valueSanGD, setValueSanGD] = useState("");
   const [valueMaCK, setValueMaCK] = useState("");
   const [valueTTLenh, setValueTTLenh] = useState("");
-  const c=dayjs()
-  const [valueDateFrom, setValueDateFrom] = useState<Dayjs | null>(c.month(-1));
+  const c = dayjs();
+  const [valueDateFrom, setValueDateFrom] = useState<Dayjs | null>(c.month(-0));
   const [valueDateTo, setValueDateTo] = useState<Dayjs | null>(c);
   const handleChangeS = (event: SelectChangeEvent) => {
     setAge(event.target.value as string);
@@ -184,15 +183,46 @@ export default function ClientActivityRange(posts: ProductsProps) {
   const handleChangeDateTo = (newValueDateTo: Dayjs | null) => {
     setValueDateTo(newValueDateTo);
   };
+  // const [product, setProduct] = useState<HisOrder[]>([]);
+  // useEffect(() => {
+  //   const getProduct = async () => {
+  //     const { data } = await list();
+  //     setProduct(data);
+  //     console.log(data);
+  //   };
+  //   getProduct();
+
+  // }, []);
   const [product, setProduct] = useState<HisOrder[]>([]);
-  useEffect(() => {
-    const getProduct = async () => {
-      const { data } = await list();
-      setProduct(data);
-      console.log(data);
-    };
-    getProduct();
-  }, []);
+  const [isLoading, setIsLoading] = useState(false);
+  const [err, setErr] = useState("");
+  const handleClick = async () => {
+    setIsLoading(true);
+
+    try {
+      const product = await fetch("http://localhost:8480/Data", {
+        method: "GET",
+        headers: {
+          Accept: "application/json"
+        }
+      });
+
+      if (!product.ok) {
+        throw new Error(`Error! status: ${product .status}`);
+      }
+
+      const result = await product.json();
+
+      console.log("result is: ", JSON.stringify(result, null, 4));
+
+      setProduct(result);
+    } catch (err) {
+      setErr(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  console.log(product);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -218,16 +248,16 @@ export default function ClientActivityRange(posts: ProductsProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<Filter>();
-  const onHandleSubmit =(data:any)=>{ 
-   
-    console.log(data)}
-
+  const onHandleSubmit = (data: any) => {
+    console.log(data);  
+  };
 
   //   const { register, handleSubmit } = useForm();      const onHandleSubmit =(data:any)=>{       console.log(data)      }
-  
+
 
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
+     
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
@@ -244,7 +274,8 @@ export default function ClientActivityRange(posts: ProductsProps) {
             sx={{ float: "right" }}
             // onSubmit={handleSubmit(onSubmit)}
           >
-            <Box display="flex" component="form" onSubmit={handleSubmit(onHandleSubmit)}>
+            {/* onSubmit={handleSubmit(onHandleSubmit)} */}
+            <Box display="flex" component="form">
               <Box sx={{ minWidth: 100, marginRight: "20px" }}>
                 <FormControl variant="standard" sx={{ minWidth: 100 }}>
                   <InputLabel id="demo-simple-select-standard-label">
@@ -255,14 +286,13 @@ export default function ClientActivityRange(posts: ProductsProps) {
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
                     // value={valueSanGD}
-                    {...register('SanGD')}
+                     {...register("SanGD")}
                     label="Age"
                   >
                     <MenuItem value="Tat ca"> {t("home:base.TatCa")} </MenuItem>
                   </Select>
                 </FormControl>
               </Box>
-
               <Box sx={{ minWidth: 80, marginRight: "20px" }}>
                 <FormControl variant="standard" sx={{ minWidth: 80 }}>
                   <InputLabel id="demo-simple-select-standard-label">
@@ -272,8 +302,7 @@ export default function ClientActivityRange(posts: ProductsProps) {
                   <Select
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
-                   
-                    {...register('MaCK')}
+                   {...register("MaCK")}
                     label="Age"
                   >
                     <MenuItem value="Tat ca"> {t("home:base.TatCa")}</MenuItem>
@@ -290,7 +319,7 @@ export default function ClientActivityRange(posts: ProductsProps) {
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
                     // value={valueTTLenh}
-                    {...register('TinhTrangLenh')}
+                    {...register("TinhTrangLenh")}
                     label="Age"
                   >
                     <MenuItem value="Tat ca">{t("home:base.TatCa")}</MenuItem>
@@ -298,54 +327,69 @@ export default function ClientActivityRange(posts: ProductsProps) {
                 </FormControl>
               </Box>
               <Box sx={{ width: 155, marginRight: "20px", marginTop: "8px" }}>
-              <Stack>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DesktopDatePicker
+                <Stack>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DesktopDatePicker
                       label={t("home:base.TuNgay")}
                       inputFormat="MM/DD/YYYY"
                       value={valueDateFrom}
                       onChange={handleChangeDateFrom}
                       renderInput={(params: any) => (
-                        <TextField size="small" {...params} {...register('DateForm')} />
-                      )}                />
-                </LocalizationProvider>
-              </Stack>
-            </Box>
-            <Box sx={{ width: 155, marginRight: "20px", marginTop: "8px" }}>
-              <Stack>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DesktopDatePicker
+                        <TextField
+                          size="small"
+                          {...params}
+                          {...register("DateForm")}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </Stack>
+              </Box>
+              <Box sx={{ width: 155, marginRight: "20px", marginTop: "8px" }}>
+                <Stack>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DesktopDatePicker
                       label={t("home:base.DenNgay")}
                       inputFormat="MM/DD/YYYY"
                       value={valueDateTo}
                       onChange={handleChangeDateTo}
                       renderInput={(params: any) => (
-                        <TextField size="small" {...params} {...register('DateTo')} />
-                      )}                 />
-                </LocalizationProvider>
-              </Stack>
-            </Box>
-            <Box sx={{ minWidth: 140, marginRight: "20px" }}>
+                        <TextField
+                          size="small"
+                          {...params}
+                          {...register("DateTo")}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </Stack>
+              </Box>
+              <Box sx={{ minWidth: 140, marginRight: "20px" }}>
                 <FormControl variant="standard" sx={{ minWidth: 140 }}>
                   <InputLabel id="demo-simple-select-standard-label">
-                  {t("home:base.ThuTuSapXep")}
+                    {t("home:base.ThuTuSapXep")}
                   </InputLabel>
 
                   <Select
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
                     // value={valueTTLenh}
-                    {...register('SortBy')}
+                    {...register("SortBy")}
                     label="Age"
                   >
                     <MenuItem value="ASC">{t("home:base.TatCa")}</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
-                  <input type="submit" value="Cập nhật"></input>
+              
+              
             </Box>
-           
-{/*           
+            <input
+                type="submit"
+                onClick={handleClick}
+                value="Cập nhật"
+              ></input>
+            {/*           
             <Button
               sx={{ marginTop: "8px" }}
               size="small"
@@ -406,6 +450,8 @@ export default function ClientActivityRange(posts: ProductsProps) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
+                {err && <h2>{err}</h2>}
+                {isLoading && <h2>Loading...</h2>}
                   {(rowsPerPage > 0
                     ? product.slice(
                         page * rowsPerPage,
@@ -414,8 +460,7 @@ export default function ClientActivityRange(posts: ProductsProps) {
                     : product
                   ).map(
                     (product) => (
-                      listSanGD.push(product.AEXCHANGE),
-                     
+                      // listSanGD.push(product.AEXCHANGE),
                       (
                         <TableRow key={product.AORDERID}>
                           <TableCell component="th" scope="row">
@@ -499,4 +544,3 @@ export default function ClientActivityRange(posts: ProductsProps) {
     </Box>
   );
 }
-

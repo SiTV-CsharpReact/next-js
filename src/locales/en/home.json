@@ -2,7 +2,14 @@
     "menu":{
         "REPORT_LSKL":"Matched Order History",      
         "REPORT_LSDL":"Order Placement History",
-        "REPORT_LCKTT":"Matched Orders Pending for Settlement"
+        "REPORT_LCKTT":"Matched Orders Pending for Settlement",
+        "HOME":"Home",
+        "LichSu":"History",
+        "Tien":"Monney",
+        "Quyen":"Permission",
+        "BaoCao":"Report",
+        "TuVan":"Advisory",
+        "HoTro":"Support"
     },
     "helo":"helo SI is me",
     "base":{

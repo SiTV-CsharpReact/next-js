@@ -39,9 +39,7 @@ export default function Home( ) {
   return (
    
   <>
-  <Typography>
-    {t('helo')}
-  </Typography>
+  
     <DragDropContext onDragEnd={onDragEnd}>
             <div className="kanban">
                 {

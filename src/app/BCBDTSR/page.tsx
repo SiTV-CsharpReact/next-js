@@ -12,7 +12,12 @@ const pageBDTSR = () => {
     const {t} = useTranslation(['home','report']);
     const [products, setProducts] = useState<ModelBCBDTSR | null>(null);
     useEffect(() => {
-        axios.get(`http://localhost:8480/api/stock/v1/report/nav/058C222210?from_date=31/12/2022&to_date=03/01/2023`)
+        fetch('http://10.26.7.194:8086/api/v1/notifications/058C222210/1/10',{mode: 'no-cors',credentials: 'include',
+        method: 'GET'})
+  .then((response) => response.json())
+ 
+        // axios.get(`http://10.26.7.194:8086/api/v1/notifications/058C222210/1/10`)
+        // .then(res=>res.json());
         .then(res=>setProducts(res.data))
         .catch(error=>{
           console.log(error);

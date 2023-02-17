@@ -1,3 +1,4 @@
+"use client"
 import colorConfigs from "@/configs/colorConfigs";
 import {
   Drawer,
@@ -10,8 +11,13 @@ import {
   alpha,
   Switch,
   useTheme,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
@@ -19,7 +25,13 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import FilterListTwoToneIcon from "@mui/icons-material/FilterListTwoTone";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-
+import { NotiGetModel } from "@/models/Noti/Noti";
+import axios from "axios";
+import LoadingComponent from "@/layout/LoaddingComponent";
+import DraftsIcon from '@mui/icons-material/Drafts';
+import Link from "next/link";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 const Android12Switch = styled(Switch)(({ theme }) => ({
   padding: 8,
   "& .MuiSwitch-track": {
@@ -53,27 +65,42 @@ const Android12Switch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
+
+const stylesHovertext = {
+  whiteSpace:'nowrap',
+  width:'425px',
+  overflow:'hidden',
+  textOverflow:'ellipsis',
+  // '&:hover': {
+  //   overflow: 'visible',
+  //   whiteSpace:'normal',
+  //   transition:'1s'
+  // }
+};
+
 const Noti = () => {
+  const [loading,setLoading] = useState(true);
+  const [noti, setNoti] = useState<NotiGetModel | null>(null);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
+  useEffect(() => {
+    axios.get(`http://10.26.7.197:8086/api/v1/notifications/058C222210/1/10`)
+    .then(res=>setNoti(res.data))
+    .catch(error=>{
+      console.log(error);
+    })
+    .finally(()=> setLoading(false));
+//     fetch('http://10.26.7.194:8086/api/v1/notifications/058C222210/1/10',{mode: 'no-cors',credentials: 'include',
+//     method: 'GET'})
+// // .then((response) => response.json())
+// .then((response)=> setNoti(response.json()))
+  },[])
+  // if (loading) return <LoadingComponent message="Noti"/>
+  
+ 
   return (
     <>
       <Box
@@ -90,7 +117,7 @@ const Noti = () => {
       >
         <Tooltip title="Thông báo">
           <IconButton>
-            <Badge badgeContent={9} color="error">
+            <Badge badgeContent={10} color="error">
               <NotificationsNoneIcon
                 style={{ color: "#034e95", fontSize: "30px" }}
               />
@@ -164,7 +191,61 @@ const Noti = () => {
               </Box>
             </Box>
             {/* body */}
-
+            <Box maxHeight={860} sx={{
+              maxHeight:860,
+              overflowY:'auto'
+            }}>
+        <List>
+        
+        {noti?.map(not=>(
+            not.ATYPE == 3 ?
+           <ListItem color="#fff" key={not.AID} sx={{
+            borderBottom:"1px solid #fff",
+            color:"#fff",
+            padding:0
+           }}>
+           <ListItemButton sx={{justifyContent:"space-between"}}>
+             <ListItemIcon>
+             <MonetizationOnIcon style={{color:"#fff", fontSize:30}}/>
+             </ListItemIcon>
+             <Box sx={{padding:"0px 5px"}}>
+             <Typography color="#fff">{not.ATITLE} </Typography>
+             <Typography color="#fff" fontSize={14} sx={stylesHovertext}>{not.ACONTENT} </Typography>
+             </Box>
+             <Box>
+              <Link href={not.AURL}>
+              <ArrowForwardIcon style={{color:"#fff", fontSize:25}}/>
+              <Typography color="#fff" fontSize={14}>3h </Typography>
+              </Link>
+             </Box>
+            
+           </ListItemButton>
+         </ListItem>
+             :  <ListItem color="#000" key={not.AID} sx={{
+              borderBottom:"1px solid #ececec",
+              padding:0
+             }}>
+             <ListItemButton sx={{justifyContent:"space-between"}}>
+               <ListItemIcon>
+               <DraftsIcon  style={{color:"#fff", fontSize:30}}/>
+               </ListItemIcon>
+               <Box sx={{padding:"0px 5px"}}>
+               <Typography color="#fff">{not.ATITLE} </Typography>
+               <Typography color="#fff" fontSize={14}>{not.ACONTENT} </Typography>
+               </Box>
+               <Box>
+                <Link href={not.AURL}>
+                <ArrowForwardIcon style={{color:"#fff", fontSize:25}}/>
+                <Typography color="#fff" fontSize={14}>3h </Typography>
+                </Link>
+               </Box>
+              
+             </ListItemButton>
+           </ListItem>
+        ))}
+          
+        </List>
+      </Box >
             {/* Footer */}
             <Box
               sx={{
@@ -186,10 +267,12 @@ const Noti = () => {
                   cursor: "pointer",
                 }}
               >
+                <Link href="/Notifications">
                 <Typography color="#fff">
                  Xem tất cả
                  
-                </Typography>
+                </Typography></Link>
+               
               </Box>
             </Box>
           </Box>

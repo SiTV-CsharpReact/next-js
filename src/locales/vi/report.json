@@ -2,7 +2,11 @@
     "menu":{
         "REPORT_LSKL":"Lịch sử khớp lệnh",
         "REPORT_LSDL":"Lịch sử đặt lệnh",
-        "REPORT_LCKTT":"Lệnh khớp chờ t.toán"
+        "REPORT_LCKTT":"Lệnh khớp chờ t.toán",
+        "REPORT_BCBDTSR":"Báo cáo biến động tài sản ròng",
+        "REPORT_BCTS":"Báo cáo tài sản",
+        "HOME":"Trang chủ"
+       
     },
     "BCTS":{
         "REPORT_TIMEUPDATES":"Dữ liệu cập nhật gần nhất:",

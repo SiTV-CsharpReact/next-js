@@ -7,11 +7,11 @@ const mockData = [
         tasks: [
             {
                 id: uuidv4(),
-                title: 'Learn JavaScript'
+                title: 'tin tức'
             },
             {
                 id: uuidv4(),
-                title: 'Learn Git'
+                title: 'thông báo'
             },
             {
                 id: uuidv4(),

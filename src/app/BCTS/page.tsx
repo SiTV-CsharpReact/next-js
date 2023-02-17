@@ -12,6 +12,7 @@ import LoadingComponent from "@/layout/LoaddingComponent";
 import { useTranslation } from "react-i18next";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import TableBCTS from "./Table";
+import { formatNumber} from "@/util/util";
 type Props = [];
 
 // sort
@@ -116,23 +117,23 @@ if(dataStatus[0] == 0) return <h3>FPTS đang thực hiện cập nhật số li�
                       {openCK ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
                     </Box>
 
-                    <TextBoldItaLic>{v_Profit.SUM_STOCK} </TextBoldItaLic>
+                    <TextBoldItaLic>{formatNumber(v_Profit.SUM_STOCK)} </TextBoldItaLic>
                   </ListItemButton>
                   <Collapse in={openCK} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                       <ListItemButtonS>
                         <TextBase> {t('report:BCTS.REPORT_CKCS')}</TextBase>
 
-                        <TextBase>{v_Profit.AVAL_STOCK} </TextBase>
+                        <TextBase>{formatNumber(v_Profit.AVAL_STOCK)} </TextBase>
                       </ListItemButtonS>
                       <ListItemButtonS>
                         <TextBase>{t('report:BCTS.REPORT_CKMCV')}</TextBase>
 
-                        <TextBase>{v_Profit.ABUY_STOCK} </TextBase>
+                        <TextBase>{formatNumber(v_Profit.ABUY_STOCK)} </TextBase>
                       </ListItemButtonS>
                       <ListItemButtonS>
                         <TextBase>{t('report:BCTS.REPORT_CKQCV')}</TextBase>
-                        <TextBase>{v_Profit.ARIGHT_STOCK} </TextBase>
+                        <TextBase>{formatNumber(v_Profit.ARIGHT_STOCK)} </TextBase>
                       </ListItemButtonS>
                       <ListItemButtonS>
                         <Box display="flex">
@@ -143,7 +144,7 @@ if(dataStatus[0] == 0) return <h3>FPTS đang thực hiện cập nhật số li�
                           </Tooltip>
                         </Box>
 
-                        <TextBase>{v_Profit.ALIMIT_STOCK} </TextBase>
+                        <TextBase>{formatNumber(v_Profit.ALIMIT_STOCK)} </TextBase>
                       </ListItemButtonS>
                     </List>
                   </Collapse>
@@ -157,14 +158,14 @@ if(dataStatus[0] == 0) return <h3>FPTS đang thực hiện cập nhật số li�
                       {openMonney ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
                     </Box>
 
-                    <TextBoldItaLic>{v_Profit.SUM_CASH} </TextBoldItaLic>
+                    <TextBoldItaLic> {formatNumber(v_Profit.SUM_CASH)} </TextBoldItaLic>
                   </ListItemButton>
                   <Collapse in={openMonney} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                       <ListItemButtonS>
                         <TextBase>{t('report:BCTS.REPORT_TTTK')}</TextBase>
 
-                        <TextBase>{v_Profit.ACASH_AMOUNT} </TextBase>
+                        <TextBase>{formatNumber(v_Profit.ACASH_AMOUNT)}</TextBase>
                       </ListItemButtonS>
                       <ListItemButtonS
                         onClick={() => setOpenMonneyReturn(!openMonneyReturn)}
@@ -179,7 +180,7 @@ if(dataStatus[0] == 0) return <h3>FPTS đang thực hiện cập nhật số li�
                           )}
                         </Box>
 
-                        <TextBase>{v_Profit.AREC_CASH_SELL} </TextBase>
+                        <TextBase>{formatNumber(v_Profit.AREC_CASH_SELL)} </TextBase>
                       </ListItemButtonS>
                       <Collapse
                         in={openMonneyReturn}
@@ -189,22 +190,22 @@ if(dataStatus[0] == 0) return <h3>FPTS đang thực hiện cập nhật số li�
                         <List component="div" disablePadding>
                           <ListItemButtonS sx={{ pl: "180px" }}>
                             <TextBase>T0</TextBase>
-                            <TextBase>{v_Profit.AREC_CASH_T0}</TextBase>
+                            <TextBase>{formatNumber(v_Profit.AREC_CASH_T0)}</TextBase>
                           </ListItemButtonS>
                           <ListItemButtonS sx={{ pl: "180px" }}>
                             <TextBase>T1 </TextBase>
-                            <TextBase>{v_Profit.AREC_CASH_T1} </TextBase>
+                            <TextBase>{formatNumber(v_Profit.AREC_CASH_T1)} </TextBase>
                           </ListItemButtonS>
                           <ListItemButtonS sx={{ pl: "180px" }}>
                             <TextBase>T2 </TextBase>
-                            <TextBase>{v_Profit.AREC_CASH_T2} </TextBase>
+                            <TextBase>{formatNumber(v_Profit.AREC_CASH_T2)} </TextBase>
                           </ListItemButtonS>
                         </List>
                       </Collapse>
                       <ListItemButtonS>
                         <TextBase>{t('report:BCTS.REPORT_TCTCV')}</TextBase>
 
-                        <TextBase>{v_Profit.ARE_CASH_DEVIDEND} </TextBase>
+                        <TextBase>{formatNumber(v_Profit.ARE_CASH_DEVIDEND)} </TextBase>
                       </ListItemButtonS>
                       <ListItemButtonS>
                         <Box display="flex">
@@ -214,12 +215,12 @@ if(dataStatus[0] == 0) return <h3>FPTS đang thực hiện cập nhật số li�
                             <InfoIcon sx={{ ml: "5px", fontSize: "16px" }} />
                           </Tooltip>
                         </Box>
-                        <TextBase>{v_Profit.ARE_CASH_OTHER} </TextBase>
+                        <TextBase>{formatNumber(v_Profit.ARE_CASH_OTHER)} </TextBase>
                       </ListItemButtonS>
                       <ListItemButtonS>
                         <TextBase>{t('report:BCTS.REPORT_TGTCV')}</TextBase>
 
-                        <TextBase>{v_Profit.ASAVINGTOTAL} </TextBase>
+                        <TextBase>{formatNumber(v_Profit.ASAVINGTOTAL)} </TextBase>
                       </ListItemButtonS>
                     </List>
                   </Collapse>
@@ -230,7 +231,7 @@ if(dataStatus[0] == 0) return <h3>FPTS đang thực hiện cập nhật số li�
                     <TextBoldItaLic >
                     {t('report:BCTS.REPORT_DNVKQ_')}
                     </TextBoldItaLic>
-                    <TextBoldItaLic>{v_Profit.AREMAIN_DEBT} </TextBoldItaLic>
+                    <TextBoldItaLic>{formatNumber(v_Profit.AREMAIN_DEBT)} </TextBoldItaLic>
                   </ListItemButton>
                 </List>
               )

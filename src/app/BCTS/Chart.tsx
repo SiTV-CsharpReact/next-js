@@ -11,7 +11,7 @@ import {
   Legend,
 } from 'chart.js';
 import Box from '@mui/material/Box/Box';
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography, useTheme } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Typography, useTheme } from '@mui/material';
 
 ChartJS.register(
   CategoryScale,
@@ -26,12 +26,12 @@ ChartJS.register(
 
 const BarChart = (dataChart:any) => {
   const theme=useTheme();
-    const [day, setDay] = React.useState('');
+    // const [day, setDay] = React.useState('');
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setDay(event.target.value as string);
+    // const handleChange = (event: SelectChangeEvent) => {
+    //     setDay(event.target.value as string);
       
-    };
+    // };
     console.log(dataChart)
   const [chartData, setChartData] = useState({
     datasets: [],
@@ -73,22 +73,24 @@ const BarChart = (dataChart:any) => {
 
   return (
     <>
-      <Box  sx={{bgcolor:theme.palette.mode === 'dark' ? '#323232' :'#ececec',borderRadius:2,height:400}}>
+      <Paper  sx={{bgcolor:theme.palette.mode === 'dark' ? '#323232' :'#ececec',borderRadius:2,height:400}}>
         <Box display="flex" justifyContent="space-between" paddingTop="10px">
         <Box></Box>
         <Typography component="span" textAlign='center'>
         THÔNG KÊ GIÁ TRỊ TÀI SẢN RÒNG    
         </Typography>
-        <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Ngày</InputLabel>
+        <Box sx={{ minWidth: 100 }}>
+      <FormControl fullWidth style={{height:30}}>
+        <InputLabel id="demo-simple-select-label">Thời gian</InputLabel>
         <Select
         defaultValue="20"
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={day}
+         
           label="Day"
-          onChange={handleChange}
+       /* A function that is called when the value of the select changes. */
+          // onChange={handleChange}
+          sx={{height:30}}
         >
           <MenuItem value="20">20 ngày</MenuItem>
           <MenuItem value="90">90 ngày</MenuItem>
@@ -97,11 +99,11 @@ const BarChart = (dataChart:any) => {
       </FormControl>
     </Box>
         </Box>
-       <Box height="350px">
+       <Box height="300px">
        <Bar data={chartData} options={chartOptions} />
        </Box>
        
-      </Box>
+      </Paper>
     </>
   );
 };

@@ -2,8 +2,10 @@
     "menu":{
         "REPORT_LSKL":"Matched Order History",      
         "REPORT_LSDL":"Order Placement History",
-        "REPORT_LCKTT":"Matched Orders Pending for Settlement"
-    
+        "REPORT_LCKTT":"Matched Orders Pending for Settlement",
+        "REPORT_BCBDTSR":"Net Asset Volatility Report",
+        "REPORT_BCTS":"Asset Report",
+        "HOME":"Home"
     },
     "BCTS":{
         "REPORT_TIMEUPDATES":"Latest updated data:",

@@ -1,3 +1,4 @@
+import { formatNumber } from '@/util/util';
 import { Box, Paper, TableContainer, Table, TableHead, TableRow, TableSortLabel, TableBody, TableFooter, styled, tableCellClasses, TableCell } from '@mui/material'
 import React, { useState } from 'react'
 import { useTranslation } from "react-i18next";
@@ -7,11 +8,11 @@ import { useTranslation } from "react-i18next";
 
 const TableBCTS = (dataTable:any) => {
   
-    const dataCTCK = dataTable.data;
-    const {t} = useTranslation(['home','report']);
-    const [orderDirection,setOrderDirection] = useState('asc');
-    const [valueToOrderBy, setValueToOrderBy] = useState('maCK');
-    let valuePTLL = "";
+const dataCTCK = dataTable.data;
+const {t} = useTranslation(['home','report']);
+const [orderDirection,setOrderDirection] = useState('asc');
+const [valueToOrderBy, setValueToOrderBy] = useState('maCK');
+let valuePTLL = "";
 let valuePTLLS = 0;
 let colorTextS = "";
 let colorTextTotal = "";
@@ -132,7 +133,7 @@ let m_totalPTLaiLo = 0;
                       (m_totalLaiLo += vProfit2.APROFIT_LOSS_VAL),
                       (m_totalPTLaiLo = (m_totalLaiLo / m_totalTONGGV) * 100),
                       (colorTextTotal =
-                        m_totalPTLaiLo > 0 ? "#00b050" : "#FF0000"),
+                        m_totalPTLaiLo > 0 ? "#00b050 !important" : "#FF0000 !important"),
                       //  m_totalPTLaiLo = isFinite(m_totalPTLaiLo) && m_totalPTLaiLo != 0 ? m_totalPTLaiLo.toFixed(2): 0,
                       (valuePTLL = vProfit2?.APROFIT_LOSS_RATE),
                       vProfit2.AAVG_PRICE == 0
@@ -145,49 +146,49 @@ let m_totalPTLaiLo = 0;
                             scope="row"
                             align="center"
                           >
-                            {vProfit2.ASTOCKCODE}
+                            {formatNumber(vProfit2.ASTOCKCODE)}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {vProfit2.ATRADING_READY_TOTAL}
+                            {formatNumber(vProfit2.ATRADING_READY_TOTAL)}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {vProfit2.ABUY_INTRADY}
+                            {formatNumber(vProfit2.ABUY_INTRADY)}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {vProfit2.AT1}
+                            {formatNumber(vProfit2.AT1)}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {vProfit2.AT2}
+                            {formatNumber(vProfit2.AT2)}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {vProfit2.AWAIT_REC_RIGHT}
+                            {formatNumber(vProfit2.AWAIT_REC_RIGHT)}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {vProfit2.AMORTGATE_BANK}
+                            {formatNumber(vProfit2.AMORTGATE_BANK)}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {vProfit2.ATRANSFER_RESTRICTED}
+                            {formatNumber(vProfit2.ATRANSFER_RESTRICTED)}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {vProfit2.ATOTAL_AMOUNT}
+                            {formatNumber(vProfit2.ATOTAL_AMOUNT)}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {vProfit2.AMARKET_PRICE}
+                            {formatNumber(vProfit2.AMARKET_PRICE)}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {vProfit2.AMARKET_VALUE}
+                            {formatNumber(vProfit2.AMARKET_VALUE)}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {vProfit2.AAVG_PRICE}
+                            {formatNumber(vProfit2.AAVG_PRICE)}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {vProfit2.AROOT_VALUE}
+                            {formatNumber(vProfit2.AROOT_VALUE)}
                           </StyledTableCell>
                           <StyledTableCell
                             align="right"
                             sx={{ color: colorTextS }}
                           >
-                            {vProfit2.APROFIT_LOSS_VAL}
+                            {formatNumber(vProfit2.APROFIT_LOSS_VAL)}
                           </StyledTableCell>
                           <StyledTableCell
                             align="right"
@@ -196,10 +197,10 @@ let m_totalPTLaiLo = 0;
                             {valuePTLLS.toFixed(2)}%
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {vProfit2.ACAPITAL_STRUCTURE}
+                            {formatNumber(vProfit2.ACAPITAL_STRUCTURE)}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {vProfit2.APORTFOLIO_RATE}
+                            {formatNumber(vProfit2.APORTFOLIO_RATE)}
                           </StyledTableCell>
                         </StyledTableRow>
                       )
@@ -217,23 +218,23 @@ let m_totalPTLaiLo = 0;
                      {t('report:BCTS.REPORT_TONG')}
                     </StyledTableCell>
                     <StyledTableCell align="right" sx={{ color: "#000" }}>
-                      {m_totalThanhTien}
+                      {formatNumber(m_totalThanhTien)}
                     </StyledTableCell>
                     <StyledTableCell align="right"></StyledTableCell>
                     <StyledTableCell align="right" sx={{ color: "#000" }}>
-                      {m_totalTONGGV}
+                      {formatNumber(m_totalTONGGV)}
                     </StyledTableCell>
                     <StyledTableCell
                       align="right"
                       sx={{ color: colorTextTotal }}
                     >
-                      {m_totalLaiLo}
+                      {formatNumber(m_totalLaiLo)}
                     </StyledTableCell>
                     <StyledTableCell
                       align="right"
                       sx={{ color: colorTextTotal }}
                     >
-                      {m_totalPTLaiLo.toFixed(2)}%
+                      {formatNumber(m_totalPTLaiLo.toFixed(2))}%
                     </StyledTableCell>
                     <StyledTableCell align="right"></StyledTableCell>
                     <StyledTableCell align="right"></StyledTableCell>

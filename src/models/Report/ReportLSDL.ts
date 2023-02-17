@@ -2,10 +2,10 @@
 export interface ModelLSDL {
   Code: number
   Message: string
-  Data: ReportLSDLModel[]
+  Data: HisOrder[]
 }
 
-export interface ReportLSDLModel {
+export interface HisOrder {
     AORDERID: number
     ATRANID: number
     ACLIENTCODE: string
@@ -37,11 +37,11 @@ export interface ReportLSDLModel {
     AMESSAGE_EN: string
     ABACKUPDATE: string
   }
-export interface ListSearchModel{
+export interface Filter{
     SanGD: string,
     MaCK: string,
     StatusLenh: string,
     FormDate:string,
     ToDate:string,
-    Sort:string
+    SortBy:string
 }

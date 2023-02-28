@@ -10,7 +10,6 @@ import Chart from "./Chart";
 import axios from "axios";
 import LoadingComponent from "@/layout/LoaddingComponent";
 import { useTranslation } from "react-i18next";
-import TableSortLabel from "@mui/material/TableSortLabel";
 import TableBCTS from "./Table";
 import { formatNumber} from "@/util/util";
 type Props = [];

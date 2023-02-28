@@ -237,10 +237,10 @@ body{
   left: 60px;
   width: calc(100% - 60px);
 }
-.header-fpts{
+/* .header-fpts{
   left: 240px;
   height: 60px;
-}
+} */
 .home-content{
   display: flex;
   align-items: center;

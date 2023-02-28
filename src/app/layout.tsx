@@ -6,8 +6,7 @@ import { createTheme, CssBaseline, ThemeProvider } from '@mui/material'
 import { Suspense, useEffect, useState } from 'react'
 import '../configs/configLanguage/i18n'
 import Box from "@mui/material/Box";
-import { Provider } from 'react-redux';
-import { store_0001 } from '@/store/Store'
+
 
 export default function RootLayout({
  
@@ -48,15 +47,9 @@ function handleThemeChange(){
   localStorage.setItem("color", darkMode ? "light" : "dark");
   setDarkMode(!darkMode)
 }
-const loadingLanguage = (
-  <div>
-    <span>
-      Loading...
-    </span>
-  </div>
-)
+
   return (
-    <html lang="VI" >
+    <html lang="VI" className="dark" >
       {/*
         <head /> will contain the components returned by the nearest parent
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
@@ -67,9 +60,9 @@ const loadingLanguage = (
       <CssBaseline />
       <body >
     
-      <Sidebar/>
+      {/* <Sidebar/> */}
       <Header darkMode={darkMode} handleThemeChange={handleThemeChange}/>
-        <Box className='home-section' id="scroll-bar">
+        <Box id="scroll-bar">
         {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}> */}
         {children}
         </Box>

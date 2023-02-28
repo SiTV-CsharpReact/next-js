@@ -4,12 +4,15 @@
         "REPORT_LSDL":"Order Placement History",
         "REPORT_LCKTT":"Matched Orders Pending for Settlement",
         "HOME":"Home",
-        "LichSu":"History",
-        "Tien":"Monney",
+        "LichSuGD":"TXN History",
+        "GDTien":"Monney TXN",
+        "GDDacBiet": "SPECIAL TXN",
+        "QuanLyTK":"ACCOUNT MGMT",
         "Quyen":"Permission",
         "BaoCao":"Report",
-        "TuVan":"Advisory",
+        "TuVanDauTu":"Advisory",
         "HoTro":"Support"
+        
     },
     "helo":"helo SI is me",
     "base":{

@@ -80,7 +80,7 @@ export default function Sidebar() {
           <Box className="iocn-link">
             <HistoryIcon style={{ color: "#fff" }} />
           <Typography color="#fff" fontSize={12} textAlign="center">
-          {t("home:menu.LichSu")} 
+          {t("home:menu.LichSuGD")} 
             </Typography>
           </Box>
           <List className="sub-menu">
@@ -100,7 +100,7 @@ export default function Sidebar() {
           <Box className="iocn-link">
             <AttachMoneyIcon style={{ color: "#fff" }} />
             <Typography color="#fff" fontSize={12} textAlign="center">
-            {t("home:menu.Tien")} 
+            {t("home:menu.GDTien")} 
             </Typography>
           </Box>
           <List className="sub-menu">
@@ -140,7 +140,7 @@ export default function Sidebar() {
           <Box className="iocn-link">
             <ManageAccountsIcon style={{ color: "#fff" }} />
             <Typography color="#fff" fontSize={12} textAlign="center">
-            {t("home:menu.LichSu")} 
+            {t("home:menu.LichSuGD")} 
             </Typography>
           </Box>
           <List className="sub-menu">
@@ -215,7 +215,7 @@ export default function Sidebar() {
             {" "}
             <HeadsetMicIcon style={{ color: "#fff" }} />
             <Typography color="#fff" fontSize={12} textAlign="center">
-            {t("home:menu.TuVan")} 
+            {t("home:menu.TuVanDauTu")} 
             </Typography>
           </Box>
 
@@ -337,7 +337,7 @@ export default function Sidebar() {
       </ListItemButton>
       <Collapse in={openListLS} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-        <Link href="/LSDL">
+        <Link href="/Report">
           <ListItemButton sx={{ pl: 3 }}>
             <ListItemIcon>
            

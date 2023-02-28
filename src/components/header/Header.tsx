@@ -1,16 +1,8 @@
 "use client";
 import {
-  alpha,
-  Badge,
-  Button,
   IconButton,
-  InputBase,
-  InputLabel,
   Menu,
   MenuItem,
-  Paper,
-  Select,
-  SelectChangeEvent,
   styled,
   Switch,
   Tooltip,
@@ -19,21 +11,20 @@ import {
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import * as React from "react";
-import InsertChartIcon from "@mui/icons-material/InsertChart";
-import ShuffleIcon from "@mui/icons-material/Shuffle";
-import TocIcon from "@mui/icons-material/Toc";
+
 import Account from "./accountPopup";
 import Noti from "./notiPopup";
-import SearchIcon from "@mui/icons-material/Search";
 import Link from "next/link";
-import LanguageIcon from "@mui/icons-material/Language";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import iconLanguageVN from "../../../public/vietnam.png";
 import iconLanguageEN from "../../../public/english.png";
 import Image from "next/image";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import GTranslateIcon from "@mui/icons-material/GTranslate";
+import ListMenu from "./listMenu";
+import "../../styles/sidebar.css";
+import MenuIcon from "../../../public/menu.png";
+import Exchange from "../../../public/exchange1.png";
 
 interface Props {
   darkMode: boolean;
@@ -41,8 +32,8 @@ interface Props {
 }
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
-  width: 62,
-  height: 34,
+  width: 52,
+  height: 30,
   padding: 7,
   "& .MuiSwitch-switchBase": {
     margin: 1,
@@ -64,8 +55,8 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
   "& .MuiSwitch-thumb": {
     backgroundColor: theme.palette.mode === "dark" ? "#000" : "#fff",
-    width: 32,
-    height: 32,
+    width: 26,
+    height: 26,
     "&:before": {
       content: "''",
       position: "absolute",
@@ -103,55 +94,9 @@ const BoxIcon = styled(Box)(({ theme }) => ({
   marginRight: "15px",
 }));
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  right: 10,
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  border: "1px solid #034e95",
-  borderRadius: 5,
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingRight: `calc(1em + ${theme.spacing(4)})`,
-    paddingLeft: 15,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
 const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 const Header = ({ darkMode, handleThemeChange }: Props) => {
-  console.log(darkMode,handleThemeChange)
-//  const Header = ({colorMode: Props) => {
-  //show language
-
-  // const {isDarkMode, toggleDarkMode} = useContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openPopupLanguage = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -171,34 +116,36 @@ const Header = ({ darkMode, handleThemeChange }: Props) => {
     i18n.changeLanguage(lng);
     handleCloseLanguage();
   };
+ 
   return (
     <Box
       sx={{
         bgcolor: theme.palette.mode === "dark" ? "#000" : "#fff",
-        padding: "10px 18px",
-        position: "fixed",
-        display: "flex",
-        justifyContent: "space-between",
+        padding: "5px 18px 5px 15px",       
+        display: "flex",     
         zIndex: 100,
-        // borderColor: theme.palette.mode === 'dark' ? '#fff' :'#034e95',//This will not override the default color of the border.
-        // borderBottom: 1,
-        // borderStyle: "solid",
+        width:'100%'
       }}
-      padding="10px 18px"
-      className="header-fpts"
+   
+      className="header-fpts justify-between"
     >
-      <Box className="header-left flex">
-        <Link href="/" className="flex italic">
-          <Typography fontSize="24px" fontWeight="bold">
-            Ez
-          </Typography>
-          <Typography color="#034e95" fontSize="24px" fontWeight="bold">
-            Trade
-          </Typography>
+      <div className="flex">
+        <Link href="/">
+          <b className="italic text-2xl">
+          <span >
+             Ez
+           </span>
+           <span className="text-logo">
+         Trade
+           </span>
+          </b>
+          
         </Link>
-      </Box>
-      <Box className="header-center"></Box>
+        <ListMenu></ListMenu>
+      </div>
+        <div></div> 
       <Box className="header-right" display="flex">
+      
         <Box>
           <Tooltip title="Ngôn ngữ">
             <IconButton
@@ -208,7 +155,7 @@ const Header = ({ darkMode, handleThemeChange }: Props) => {
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
             >
-              <GTranslateIcon style={{ color: "#034e95", fontSize: "25px" }} />
+              <GTranslateIcon style={{ color: "#034e95", fontSize: "20px" }} />
             </IconButton>
           </Tooltip>
           <Menu
@@ -253,65 +200,36 @@ const Header = ({ darkMode, handleThemeChange }: Props) => {
             <MaterialUISwitch checked={darkMode} onChange={handleThemeChange} />
           </Tooltip>
         </Box>
-        <BoxIcon>
-          <Link href="Marketwatch">
-            <Tooltip title="Bảng giá">
-              <IconButton>
-                <InsertChartIcon
-                  style={{ color: "#034e95", fontSize: "30px" }}
-                />
-              </IconButton>
-            </Tooltip>
-          </Link>
-        </BoxIcon>
-        <BoxIcon>
-          <Tooltip title="Chứng khoán phái sinh">
-            <IconButton>
-              <ShuffleIcon style={{ color: "green", fontSize: "30px" }} />
-            </IconButton>
-          </Tooltip>
-        </BoxIcon>
-
-        <Search
-          sx={{ marginLeft: "0px !important", marginRight: "15px !important" }}
-        >
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Tìm kiếm..."
-            inputProps={{ "aria-label": "search" }}
-          />
-        </Search>
-        <BoxIcon>
-          <Tooltip title="Danh sách">
-            <IconButton>
-              <TocIcon style={{ color: "#034e95", fontSize: "30px" }} />
-            </IconButton>
-          </Tooltip>
-        </BoxIcon>
-        {/* <Box
-        sx={{
-          width: "40px",
-          height: "40px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          boxSizing: "border-box",
-          marginRight: "20px",
-        }}
-        onClick={() => setOpen(true)}
-      >
-        <Tooltip title="Thông báo">
-          <IconButton>
-            <Badge badgeContent={9} color="error">
-              <NotificationsNoneIcon
-                style={{ color: "#034e95", fontSize: "30px" }}
+   <Box>
+   <Tooltip title="Giao dịch chứng khoán phái sinh ">
+   <IconButton>
+          <Image
+                alt="Menu"
+                src={Exchange}
+                style={{
+                  width: "19px",
+                  height: "19px",
+                }}
               />
-            </Badge>
-          </IconButton>
-        </Tooltip>
-      </Box> */}
+             
+             </IconButton>
+          </Tooltip>
+
+   <Tooltip title="Danh sách">
+   <IconButton>
+          <Image
+                alt="Menu"
+                src={MenuIcon}
+                style={{
+                  width: "22px",
+                  height: "18px",
+                }}
+              />
+             
+             </IconButton>
+          </Tooltip>
+        
+   </Box>
         <Noti />
         <Account />
       </Box>

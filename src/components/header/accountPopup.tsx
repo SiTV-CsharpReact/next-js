@@ -14,10 +14,6 @@ import {
   styled,
 } from "@mui/material";
 import React from "react";
-import { useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { color } from "@mui/system";
 import KeyIcon from "@mui/icons-material/Key";
 import LockIcon from "@mui/icons-material/Lock";
 import RestoreIcon from "@mui/icons-material/Restore";
@@ -26,6 +22,10 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import GTranslateIcon from "@mui/icons-material/GTranslate";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { color } from "@mui/system";
 import Image from "next/image";
 import userMen from "../../../public/men.jpg";
 import menuAvatar from "../../../public/menu-avatar.svg";
@@ -58,12 +58,13 @@ const Account = () => {
         <Image
           alt="Vercel logo"
           src={userMen}
-          width={40}
-          height={40}
+         
           style={{
             border: "2px solid #034e95",
             borderRadius: "50%",
             maxWidth: "100%",
+            height:30,
+            width: 30,
           }}
         />
         <Image
@@ -76,23 +77,15 @@ const Account = () => {
             borderRadius: "50%",
             maxWidth: "100%",
             height: "auto",
-            top: 25,
-            left: 27,
+            top: 15,
+            left: 17,
           }}
         />
-        <Box paddingTop="2px" paddingLeft="7px">
+        <Box paddingTop="5px" paddingLeft="7px">
+          
           <Typography
             style={{
               fontSize: "14px",
-              fontWeight: "600",
-              color: colorConfigs.sidebar.colorSB,
-            }}
-          >
-            Tạ Văn Sĩ
-          </Typography>
-          <Typography
-            style={{
-              fontSize: "12px",
               color: colorConfigs.sidebar.colorSB,
               padding: "unset",
             }}
@@ -329,7 +322,7 @@ const Account = () => {
                       marginLeft: "5px",
                     }}
                   />
-                </Typography>
+                </Typography >
               </Box>
             </Box>
           </Box>

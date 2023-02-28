@@ -6,7 +6,7 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { useNavigate } from "react-router-dom";
+import { Suspense } from "react";
 import {
   FormControl,
   InputLabel,
@@ -50,6 +50,7 @@ import { Filter, HisOrder, ModelLSDL } from "@/models/Report/ReportLSDL";
 import { useForm, SubmitHandler } from "react-hook-form";
 import {  listLSDL } from "@/api/Report/HistoryOrder";
 import LoadingComponent from "@/layout/LoaddingComponent";
+import Report from "@/hooks/Report/Report";
 
 interface TablePaginationActionsProps {
   count: number;
@@ -210,7 +211,9 @@ export default function ClientActivityRange(posts: ProductsProps) {
     };
     getProduct();
   }, []);
-  // if (loading) return <LoadingComponent message="Báo cáo biến động tài sản ròng"/>
+  const {data,error,mutate} = Report()
+  // if (!data) return <LoadingComponent message="Lịch sử đặt lệnh"/>
+  if(error)return <div>Errors</div>
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -244,6 +247,7 @@ export default function ClientActivityRange(posts: ProductsProps) {
   
 
   return (
+   
     <Box sx={{ width: "100%", typography: "body1" }}>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -522,5 +526,6 @@ export default function ClientActivityRange(posts: ProductsProps) {
         <TabPanel value="3"> {t("report:menu.REPORT_LCKTT")} </TabPanel>
       </TabContext>
     </Box>
+    
   );
 }

@@ -20,11 +20,11 @@ import {
 import React, { useEffect } from "react";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+// import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import FilterListTwoToneIcon from "@mui/icons-material/FilterListTwoTone";
-import SettingsIcon from "@mui/icons-material/Settings";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+// import FilterListTwoToneIcon from "@mui/icons-material/FilterListTwoTone";
+// import SettingsIcon from "@mui/icons-material/Settings";
+// import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { NotiGetModel } from "@/models/Noti/Noti";
 import axios from "axios";
 import LoadingComponent from "@/layout/LoaddingComponent";
@@ -71,14 +71,11 @@ const stylesHovertext = {
   width:'425px',
   overflow:'hidden',
   textOverflow:'ellipsis',
-  // '&:hover': {
-  //   overflow: 'visible',
-  //   whiteSpace:'normal',
-  //   transition:'1s'
-  // }
+
 };
 
 const Noti = () => {
+  
   const [loading,setLoading] = useState(true);
   const [noti, setNoti] = useState<NotiGetModel | null>(null);
   const theme = useTheme();
@@ -105,8 +102,7 @@ const Noti = () => {
     <>
       <Box
         sx={{
-          width: "40px",
-          height: "40px",
+     
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -116,13 +112,13 @@ const Noti = () => {
         onClick={() => setOpen(true)}
       >
         <Tooltip title="Thông báo">
-          <IconButton>
-            <Badge badgeContent={10} color="error">
-              <NotificationsNoneIcon
-                style={{ color: "#034e95", fontSize: "30px" }}
+       
+            <Badge sx={{fontSize:"10px"}} badgeContent={9} color="error">
+              <NotificationsIcon
+                style={{ color: "#034e95", fontSize: "24px" }}
               />
             </Badge>
-          </IconButton>
+
         </Tooltip>
       </Box>
       <Drawer open={open} anchor={"right"} onClose={() => setOpen(false)}>

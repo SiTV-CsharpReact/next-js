@@ -245,7 +245,7 @@ if(dataStatus[0] == 0) return <h3>FPTS đang thực hiện cập nhật số li�
       </Box>
       <Box>
      
-        <Box paddingTop="15px">   <Chart dataChart={dataChart}/></Box>
+        <Box paddingTop="15px">   <Chart/></Box>
       </Box>
     </Box>
   );
